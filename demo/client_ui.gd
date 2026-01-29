@@ -73,7 +73,10 @@ func _on_seal_pressed() -> void:
 
 
 func _on_start_pressed() -> void:
-	client.start(host.text, room.text, mesh.button_pressed)
+	# url = host.text
+	# intentionally hard-coding for now
+	url = "wss://godot-web-multiplayer.onrender.com"
+	client.start(url, room.text, mesh.button_pressed)
 
 
 func _on_stop_pressed() -> void:
