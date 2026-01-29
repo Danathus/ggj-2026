@@ -1,0 +1,15 @@
+63f7b34db8d8cdea90c76aacccf841ec
+::res://::1769667027
+README.md::TextFile::-1::1769664681::0::1::::<><><>0<>0<><>::
+::res://client/::1769664681
+multiplayer_client.gd::GDScript::7438470048050344632::1769664681::0::1::::<><><>0<>0<><>::
+ws_webrtc_client.gd::GDScript::8728488251096339975::1769664681::0::1::::<>Node<><>0<>0<><>::
+::res://demo/::1769664681
+client_ui.gd::GDScript::1556847964005360542::1769664681::0::1::::<>Control<><>0<>0<><>::
+client_ui.tscn::PackedScene::8961483081174963309::1769664681::0::1::::<><><>0<>0<><>::uid://wgfb8vvpxkha::::res://demo/client_ui.gd<>uid://dd8irriksq2si::::res://client/multiplayer_client.gd
+main.gd::GDScript::8385961740438406997::1769664681::0::1::::<>Control<><>0<>0<><>::
+main.tscn::PackedScene::2755446905353143026::1769664681::0::1::::<><><>0<>0<><>::uid://drqhtg0onjeuf::::res://demo/main.gd<>uid://d0xak1rv4tda0::::res://demo/client_ui.tscn<>uid://16sfrgros1ps::::res://server/ws_webrtc_server.gd
+::res://server/::1769664681
+ws_webrtc_server.gd::GDScript::1890008382761643784::1769664681::0::1::::<>Node<><>0<>0<><>::
+::res://server_node/::1769664681
+package.json::JSON::-1::1769664681::0::1::::<><><>0<>0<><>::
