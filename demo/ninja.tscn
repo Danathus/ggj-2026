@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://d1kteu1wsmdpg" path="res://audio/jump-landing2.mp3" id="9_j8g7q"]
 [ext_resource type="AudioStream" uid="uid://b0ltlyuav2wdn" path="res://audio/jump-landing3.mp3" id="10_lr8qu"]
 [ext_resource type="AudioStream" uid="uid://bqtfiemwlh6kf" path="res://audio/jumping.mp3" id="11_j8g7q"]
+[ext_resource type="AudioStream" uid="uid://b32t7234onbmr" path="res://audio/whoosh.mp3" id="12_lr8qu"]
 
 [sub_resource type="Animation" id="Animation_8etv0"]
 length = 0.001
@@ -74,6 +75,7 @@ script = ExtResource("7_k0t1t")
 landingClips = Array[AudioStream]([ExtResource("8_wfboo"), ExtResource("9_j8g7q"), ExtResource("10_lr8qu")])
 runningClips = Array[AudioStream]([ExtResource("6_npd7j")])
 jumpingClips = Array[AudioStream]([ExtResource("11_j8g7q")])
+whooshClip = ExtResource("12_lr8qu")
 
 [node name="Right Player" type="Node2D" parent="." unique_id=1584593828]
 position = Vector2(1100, -50)
@@ -92,3 +94,4 @@ script = ExtResource("7_k0t1t")
 landingClips = Array[AudioStream]([ExtResource("8_wfboo"), ExtResource("9_j8g7q"), ExtResource("10_lr8qu")])
 runningClips = Array[AudioStream]([ExtResource("6_npd7j")])
 jumpingClips = Array[AudioStream]([ExtResource("11_j8g7q")])
+whooshClip = ExtResource("12_lr8qu")
