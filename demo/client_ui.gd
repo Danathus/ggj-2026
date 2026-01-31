@@ -94,12 +94,22 @@ func netRecvInfo(key, value) -> void:
 			var winnerName = winnerData.get("name", "undefined")
 			_log("[Game] Current winner: peer %d (name %s)" % [winnerID, winnerName])
 
+
 func updatePlayersList() -> void:
 	_log("trying to updatePlayersList()")
-	# todo: update player name list
-	playersList.clear()
+
+	# get list of players
+	var names = []
 	for playerData in game_data.values():
-		playersList.add_item(playerData["name"])
+		names.append(playerData["name"])
+
+	# alphabetize list
+	names.sort()
+
+	# update the UI control with list of players
+	playersList.clear()
+	for name in names:
+		playersList.add_item(name)
 
 
 func _ready() -> void:
