@@ -46,3 +46,8 @@ For relayed messages (i.e. for `OFFER`, `ANSWER`, and `CANDIDATE`), the client w
 ## Screenshots
 
 ![Screenshot](screenshots/screenshot.png)
+
+## Credits and Attribution
+
+* **Icons:** [Copy](https://icons8.com/icon/86201/copy) icon by [Icons8](https://icons8.com)
+* **Engine:** Powered by [Godot Engine](https://godotengine.org/)

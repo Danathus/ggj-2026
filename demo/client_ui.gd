@@ -1,8 +1,6 @@
 extends Control
 
 @onready var client: Node = $Client
-#@onready var host: LineEdit = $VBoxContainer/Connect/Host
-#@onready var room: LineEdit = $VBoxContainer/Connect/RoomSecret
 
 @onready var room: LineEdit = $HBoxContainer/VBoxContainer/HBoxContainer2/Connect/RoomSecret
 @onready var mesh: CheckBox = $HBoxContainer/VBoxContainer/HBoxContainer2/Connect/Mesh
@@ -163,6 +161,8 @@ func _disconnected() -> void:
 
 func _lobby_joined(lobby: String) -> void:
 	_log("[Signaling] Joined lobby %s" % lobby)
+	# put this in the room text field automatically
+	room.text = lobby
 	##
 	# send my name
 	##
@@ -193,6 +193,8 @@ func _on_seal_pressed() -> void:
 func _on_start_pressed() -> void:
 	var url = _get_server_url()
 	client.start(url, room.text, mesh.button_pressed)
+	# print a note about how you may have to wait a moment
+	_log("Waking server if needed (please wait)...")
 
 
 func _on_stop_pressed() -> void:
@@ -218,3 +220,7 @@ func _on_scissors_pressed() -> void:
 	btnRock.disabled = false
 	btnPaper.disabled = false
 	btnScissors.disabled = true
+
+
+func _on_copy_button_pressed() -> void:
+	DisplayServer.clipboard_set(room.text)
