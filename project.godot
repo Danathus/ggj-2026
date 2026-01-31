@@ -18,7 +18,7 @@ config/name="Global Game Jam 2026"
 config/description="Global Game Jam 2026 Entry.
 Based on a WebSocket signaling server/client demo for WebRTC."
 config/tags=PackedStringArray("demo", "network", "official")
-run/main_scene="res://demo/main.tscn"
+run/main_scene="uid://bfi02p842hxck"
 config/features=PackedStringArray("4.6")
 
 [debug]

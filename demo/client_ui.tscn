@@ -15,60 +15,100 @@ script = ExtResource("1")
 [node name="Client" type="Node" parent="." unique_id=1681006175]
 script = ExtResource("2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1275782362]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1630436648]
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 655.0
 
-[node name="Connect" type="HBoxContainer" parent="VBoxContainer" unique_id=720566541]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1275782362]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=919251034]
 layout_mode = 2
 
-[node name="Room" type="Label" parent="VBoxContainer/Connect" unique_id=1928131142]
+[node name="YourNameHBox" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1586485063]
+layout_mode = 2
+
+[node name="YourNameLabel" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2/YourNameHBox" unique_id=1796257811]
+layout_mode = 2
+text = "Your Name: "
+
+[node name="YourName" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxContainer2/YourNameHBox" unique_id=1139554303]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+editable = false
+
+[node name="Connect" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=720566541]
+layout_mode = 2
+
+[node name="Room" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2/Connect" unique_id=1928131142]
 layout_mode = 2
 size_flags_vertical = 5
-text = "Room"
+text = "Room:"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="RoomSecret" type="LineEdit" parent="VBoxContainer/Connect" unique_id=364016474]
+[node name="RoomSecret" type="LineEdit" parent="HBoxContainer/VBoxContainer/HBoxContainer2/Connect" unique_id=364016474]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 placeholder_text = "secret"
 
-[node name="Mesh" type="CheckBox" parent="VBoxContainer/Connect" unique_id=1035447373]
+[node name="Mesh" type="CheckBox" parent="HBoxContainer/VBoxContainer/HBoxContainer2/Connect" unique_id=1035447373]
 layout_mode = 2
+disabled = true
 button_pressed = true
 text = "Mesh"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=2016933979]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=2016933979]
 layout_mode = 2
 
-[node name="Start" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=341820097]
+[node name="Start" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=341820097]
 layout_mode = 2
 text = "Start"
 
-[node name="Stop" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1768504484]
+[node name="Stop" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=1768504484]
 layout_mode = 2
+disabled = true
 text = "Stop"
 
-[node name="Seal" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=2085631893]
+[node name="Seal" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=2085631893]
 layout_mode = 2
+disabled = true
 text = "Seal"
 
-[node name="Ping" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1317364327]
+[node name="Ping" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=1317364327]
 layout_mode = 2
 text = "Ping"
 
-[node name="Peers" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=571306090]
+[node name="Peers" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=571306090]
 layout_mode = 2
+disabled = true
 text = "Print peers"
 
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer" unique_id=197242769]
+[node name="TextEdit" type="TextEdit" parent="HBoxContainer/VBoxContainer" unique_id=197242769]
 layout_mode = 2
 size_flags_vertical = 3
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Stop" to="." method="_on_stop_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Seal" to="." method="_on_seal_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Ping" to="." method="_on_ping_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Peers" to="." method="_on_peers_pressed"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer" unique_id=118374396]
+layout_mode = 2
+
+[node name="PlayersLabel" type="Label" parent="HBoxContainer/VBoxContainer2" unique_id=1534052517]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+size_flags_vertical = 5
+text = "Players"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayersList" type="ItemList" parent="HBoxContainer/VBoxContainer2" unique_id=2104915421]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Stop" to="." method="_on_stop_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Seal" to="." method="_on_seal_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Ping" to="." method="_on_ping_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Peers" to="." method="_on_peers_pressed"]

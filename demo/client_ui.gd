@@ -2,8 +2,20 @@ extends Control
 
 @onready var client: Node = $Client
 #@onready var host: LineEdit = $VBoxContainer/Connect/Host
-@onready var room: LineEdit = $VBoxContainer/Connect/RoomSecret
-@onready var mesh: CheckBox = $VBoxContainer/Connect/Mesh
+#@onready var room: LineEdit = $VBoxContainer/Connect/RoomSecret
+
+@onready var room: LineEdit = $HBoxContainer/VBoxContainer/HBoxContainer2/Connect/RoomSecret
+@onready var mesh: CheckBox = $HBoxContainer/VBoxContainer/HBoxContainer2/Connect/Mesh
+
+@onready var logRoot: TextEdit = $HBoxContainer/VBoxContainer/TextEdit
+
+@onready var playerName: LineEdit = $HBoxContainer/VBoxContainer/HBoxContainer2/YourNameHBox/YourName
+
+@onready var playersList: ItemList = $HBoxContainer/VBoxContainer2/PlayersList
+
+# hard-coded set of possible letters to draw from for random initial name
+var characters = 'abcdefghijklmnopqrstuvwxyz'
+
 
 func _get_server_url() -> String:
 	# we're not doing this anymore!
@@ -11,6 +23,45 @@ func _get_server_url() -> String:
 
 	# intentionally hard-coding for now
 	return "wss://godot-web-multiplayer.onrender.com"
+
+
+func generate_word(chars, length):
+	var word: String
+	var n_char = len(chars)
+	for i in range(length):
+		word += chars[randi()% n_char]
+	return word
+
+
+func netBroadcastInfo(key, value):
+	netRecvInfo.rpc(key, value)
+
+
+#func netSendInfo(senderId, receiverId, key, value):
+#	netRecvInfo.rpc(key, value)
+#	# todo
+#	return
+
+var game_data = {}
+
+@rpc("any_peer", "call_local")
+func netRecvInfo(key, value) -> void:
+	var senderID = multiplayer.get_remote_sender_id()
+
+	_log("[Multiplayer] Net Recv Info from peer %d: key: %s value: %s" % [senderID, key, value])
+	var playerData = game_data.get(senderID, {})
+	game_data[senderID] = playerData
+	playerData[key] = value
+	match key:
+		"name":
+			updatePlayersList()
+
+func updatePlayersList() -> void:
+	_log("trying to updatePlayersList()")
+	# todo: update player name list
+	playersList.clear()
+	for playerData in game_data.values():
+		playersList.add_item(playerData["name"])
 
 
 func _ready() -> void:
@@ -24,6 +75,9 @@ func _ready() -> void:
 	multiplayer.server_disconnected.connect(_mp_server_disconnect)
 	multiplayer.peer_connected.connect(_mp_peer_connected)
 	multiplayer.peer_disconnected.connect(_mp_peer_disconnected)
+	
+	# randomly fill in a player name
+	playerName.text = generate_word(characters, 6)
 
 
 @rpc("any_peer", "call_local")
@@ -41,6 +95,10 @@ func _mp_server_disconnect() -> void:
 
 func _mp_peer_connected(id: int) -> void:
 	_log("[Multiplayer] Peer %d connected" % id)
+	# send the new peer my info
+	# todo: send to just them, for now, broadcast
+	#netSendInfo(client.rtc_mp.get_unique_id(), id, "name", playerName.text)
+	netBroadcastInfo("name", playerName.text)
 
 
 func _mp_peer_disconnected(id: int) -> void:
@@ -57,6 +115,9 @@ func _disconnected() -> void:
 
 func _lobby_joined(lobby: String) -> void:
 	_log("[Signaling] Joined lobby %s" % lobby)
+	##
+	# send my name
+	##
 
 
 func _lobby_sealed() -> void:
@@ -65,7 +126,8 @@ func _lobby_sealed() -> void:
 
 func _log(msg: String) -> void:
 	print(msg)
-	$VBoxContainer/TextEdit.text += str(msg) + "\n"
+	#$VBoxContainer/TextEdit.text += str(msg) + "\n"
+	logRoot.text += str(msg) + "\n"
 
 
 func _on_peers_pressed() -> void:
