@@ -14,7 +14,8 @@ var beats = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	#run_tests()
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -51,3 +52,28 @@ func resolve_round() -> int:
 		return  0 # tie
 		
 	return p1_id if beats[c1] == c2 else p2_id
+	
+	
+func run_tests():
+	print("=== TEST 1: Rock vs Scissors ===")
+	players_dict.clear()
+	players_dict[1] = choice.rock
+	players_dict[2] = choice.scissors
+	print("Winner:", resolve_round())  # expect 1
+	
+	print("=== TEST 1: Paper vs Scissors ===")
+	players_dict.clear()
+	players_dict[1] = choice.paper
+	players_dict[2] = choice.scissors
+	print("Winner:", resolve_round())  # expect 2
+
+	print("=== TEST 2: Tie ===")
+	players_dict.clear()
+	players_dict[3] = choice.paper
+	players_dict[4] = choice.paper
+	print("Winner:", resolve_round())  # expect 0
+
+	print("=== TEST 3: Waiting ===")
+	players_dict.clear()
+	players_dict[5] = choice.rock
+	print("Winner:", resolve_round())  # expect -1
