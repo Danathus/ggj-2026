@@ -95,7 +95,10 @@ func netRecvInfo(key, value) -> void:
 			var attackerName = playerData.get("name", "null")
 			var defenderData = game_data.get(value, {})
 			var defenderName = defenderData.get("name", "null")
-			_log("[Game] %s wants to fight %s" % [attackerName, defenderName])
+			var logString = "[Game] %s wants to fight %s" % [attackerName, defenderName]
+			if attackerName == defenderName:
+				logString += " (silly %s!)" % [attackerName]
+			_log(logString)
 
 
 func updatePlayersList() -> void:
