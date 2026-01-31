@@ -3,11 +3,16 @@ extends AudioStreamPlayer2D
 @export var landingClips: Array[AudioStream] = []
 @export var runningClips: Array[AudioStream] = []
 @export var jumpingClips: Array[AudioStream] = []
+@export var whooshClip: AudioStream
 
 var _rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
 	_rng.randomize()
+
+func play_whoosh_clip() -> void:
+	stream = whooshClip
+	play()
 
 func play_random_landing_clip() -> void:
 	_play_random(landingClips, "landingClips")
