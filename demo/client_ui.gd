@@ -13,6 +13,8 @@ extends Control
 
 @onready var playersList: ItemList = $HBoxContainer/VBoxContainer2/PlayersList
 
+@onready var game: Node = $RockPaperScissorsGame
+
 # hard-coded set of possible letters to draw from for random initial name
 var characters = 'abcdefghijklmnopqrstuvwxyz'
 
@@ -55,6 +57,19 @@ func netRecvInfo(key, value) -> void:
 	match key:
 		"name":
 			updatePlayersList()
+		"play":
+			match value:
+				"rock":
+					game.UseRock(senderID)
+				"paper":
+					game.UsePaper(senderID)
+				"scissors":
+					game.UseScissor(senderID)
+			# try to resolve the round
+			var winnerID = game.resolve_round()
+			var winnerData = game_data.get(winnerID, {})
+			var winnerName = winnerData.get("name", "undefined")
+			_log("[Game] Current winner: peer %d (name %s)" % [winnerID, winnerName])
 
 func updatePlayersList() -> void:
 	_log("trying to updatePlayersList()")
@@ -149,3 +164,15 @@ func _on_start_pressed() -> void:
 
 func _on_stop_pressed() -> void:
 	client.stop()
+
+
+# gameplay buttons
+
+func _on_rock_pressed() -> void:
+	netBroadcastInfo("play", "rock")
+
+func _on_paper_pressed() -> void:
+	netBroadcastInfo("play", "paper")
+
+func _on_scissors_pressed() -> void:
+	netBroadcastInfo("play", "scissors")

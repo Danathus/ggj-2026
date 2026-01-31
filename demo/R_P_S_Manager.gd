@@ -21,15 +21,15 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-	
 
-func _UseRock(player_id: int) -> void:
+
+func UseRock(player_id: int) -> void:
 	players_dict[player_id] = choice.rock
 
-func _UseScissor(player_id: int) -> void:
+func UseScissor(player_id: int) -> void:
 	players_dict[player_id] = choice.scissors
 
-func _UsePaper(player_id: int) -> void:
+func UsePaper(player_id: int) -> void:
 	players_dict[player_id] = choice.paper
 
 func resolve_round() -> int:
