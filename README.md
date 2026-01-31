@@ -49,5 +49,9 @@ For relayed messages (i.e. for `OFFER`, `ANSWER`, and `CANDIDATE`), the client w
 
 ## Credits and Attribution
 
-* **Icons:** [Copy](https://icons8.com/icon/86201/copy) icon by [Icons8](https://icons8.com)
+* **Icons:** [Copy](https://icons8.com/icon/86201/copy) and [Paste](https://icons8.com/icon/98219/paste) icons by [Icons8](https://icons8.com)
 * **Engine:** Powered by [Godot Engine](https://godotengine.org/)
+* **Software Development:**
+  * Network/Architecture - [Dan McCue](https://github.com/Danathus)
+  * The Dude for his Time and Place - [Michael Guerrero](https://github.com/insominx)
+  * Game Logic - [Dylan Leonard]( https://github.com/dLeonard2001)
