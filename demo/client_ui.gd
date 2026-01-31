@@ -27,6 +27,26 @@ var characters = 'abcdefghijklmnopqrstuvwxyz'
 @onready var btnPaper = $HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl/Paper
 @onready var btnScissors = $HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl/Scissors
 
+var isConnectedToLobby = false;
+
+
+# set a string to true to output logs for it (debugging aid to make it easier to silence)
+# we can hard-code for now which we want to show
+var logsEnabled = {
+	"Signaling": true,
+	"Multiplayer": true,
+	"Game": true,
+	"Menu": true,
+	"Help": true
+}
+
+
+func _log(type, msg: String) -> void:
+	if logsEnabled.get(type, false):
+		msg = "[%s] %s" % [type, msg]
+		print(msg)
+		logRoot.text += str(msg) + "\n"
+
 
 func startCutscene() -> void:
 	# lazily instantiate
@@ -56,7 +76,23 @@ func generate_word(chars, length) -> String:
 
 
 func netBroadcastInfo(key, value) -> void:
-	netRecvInfo.rpc(key, value)
+	# only actually send if we are connected to someone
+	#if multiplayer.get_peers().size() > 0:
+	if isConnectedToLobby:
+		netRecvInfo.rpc(key, value)
+
+func netBroadcastAllMyInfo() -> void:
+	var me = client.rtc_mp.get_unique_id()
+	var playerData = game_data.get(me, {})
+
+	# send everything
+	for key in playerData:
+		netBroadcastInfo(key, playerData[key])
+
+	# for now explicitly send all relevant data here
+	#netBroadcastInfo("name", playerData.get("name", ""))
+	#netBroadcastInfo("play", playerData.get("play", ""))
+	#netBroadcastInfo("target", playerData.get("target", -1))
 
 
 #func netSendInfo(senderId, receiverId, key, value):
@@ -70,7 +106,7 @@ var game_data = {}
 func netRecvInfo(key, value) -> void:
 	var senderID = multiplayer.get_remote_sender_id()
 
-	_log("[Multiplayer] Net Recv Info from peer %d: key: %s value: %s" % [senderID, key, value])
+	_log("Multiplayer", "Net Recv Info from peer %d: key: %s value: %s" % [senderID, key, value])
 	var playerData = game_data.get(senderID, {})
 	game_data[senderID] = playerData
 	playerData[key] = value
@@ -90,15 +126,15 @@ func netRecvInfo(key, value) -> void:
 			var winnerID = game.resolve_round()
 			var winnerData = game_data.get(winnerID, {})
 			var winnerName = winnerData.get("name", "undefined")
-			_log("[Game] Current winner: peer %d (name %s)" % [winnerID, winnerName])
+			_log("Game", "Current winner: peer %d (name %s)" % [winnerID, winnerName])
 		"target":
 			var attackerName = playerData.get("name", "null")
 			var defenderData = game_data.get(value, {})
 			var defenderName = defenderData.get("name", "null")
-			var logString = "[Game] %s wants to fight %s" % [attackerName, defenderName]
+			var logString = "%s wants to fight %s" % [attackerName, defenderName]
 			if attackerName == defenderName:
 				logString += " (silly %s!)" % [attackerName]
-			_log(logString)
+			_log("Game", logString)
 
 
 func updatePlayersList() -> void:
@@ -148,62 +184,74 @@ func _ready() -> void:
 	var choices = [btnRock, btnPaper, btnScissors]
 	var selection = choices.pick_random()
 	selection.emit_signal("pressed")
+	
+	_log("Help", "Welcome to the game, %s!" % [playerName.text])
+	_log("Help", "You can click Start to create a new game room.")
+	_log("Help", "Or, you can paste in a secret room key and click Start to join an existing game room.")
 
 
 @rpc("any_peer", "call_local")
 func ping(argument: float) -> void:
-	_log("[Multiplayer] Ping from peer %d: arg: %f" % [multiplayer.get_remote_sender_id(), argument])
+	_log("Multiplayer", "Ping from peer %d: arg: %f" % [multiplayer.get_remote_sender_id(), argument])
 
 
 func _mp_server_connected() -> void:
-	_log("[Multiplayer] Server connected (I am %d)" % client.rtc_mp.get_unique_id())
+	_log("Multiplayer", "Server connected (I am %d)" % client.rtc_mp.get_unique_id())
 
 
 func _mp_server_disconnect() -> void:
-	_log("[Multiplayer] Server disconnected (I am %d)" % client.rtc_mp.get_unique_id())
+	_log("Multiplayer", "Server disconnected (I am %d)" % client.rtc_mp.get_unique_id())
 
 
 func _mp_peer_connected(id: int) -> void:
-	_log("[Multiplayer] Peer %d connected" % id)
+	_log("Multiplayer", "Peer %d connected" % id)
+
 	# send the new peer my info
-	# todo: send to just them, for now, broadcast
+	# todo: send to just them -- but for now, broadcast to all
 	#netSendInfo(client.rtc_mp.get_unique_id(), id, "name", playerName.text)
-	netBroadcastInfo("name", playerName.text)
+	netBroadcastAllMyInfo()
 
 
 func _mp_peer_disconnected(id: int) -> void:
-	_log("[Multiplayer] Peer %d disconnected" % id)
+	_log("Multiplayer", "Peer %d disconnected" % id)
 
 
 func _connected(id: int, use_mesh: bool) -> void:
-	_log("[Signaling] Server connected with ID: %d. Mesh: %s" % [id, use_mesh])
+	_log("Signaling", "Server connected with ID: %d. Mesh: %s" % [id, use_mesh])
 
 
 func _disconnected() -> void:
-	_log("[Signaling] Server disconnected: %d - %s" % [client.code, client.reason])
+	_log("Signaling", "Server disconnected: %d - %s" % [client.code, client.reason])
 
 
 func _lobby_joined(lobby: String) -> void:
-	_log("[Signaling] Joined lobby %s" % lobby)
+	isConnectedToLobby = true
+	_log("Signaling", "Joined lobby %s" % lobby)
 	# put this in the room text field automatically
 	room.text = lobby
-	##
-	# send my name
-	##
+	# give some more tips
+	_log("Help", "You can choose between Rock, Paper, Scissors with the buttons on the top right")
+	_log("Help", "Feel free to change your mind whenever you like.")
+	_log("Help", "When you're ready, click on a player you want to fight.")
+	_log("Help", "When a match is made, it's going down!")
+
+	# at this point we should commit our fields to the network
+	netBroadcastInfo("name", playerName.text)
+	var play = "rock"
+	if btnPaper.disabled:
+		play = "paper"
+	if btnScissors.disabled:
+		play = "scissors"
+	netBroadcastInfo("play", play)
 
 
 func _lobby_sealed() -> void:
-	_log("[Signaling] Lobby has been sealed")
-
-
-func _log(msg: String) -> void:
-	print(msg)
-	#$VBoxContainer/TextEdit.text += str(msg) + "\n"
-	logRoot.text += str(msg) + "\n"
+	_log("Signaling", "Lobby has been sealed")
 
 
 func _on_peers_pressed() -> void:
-	_log(str(multiplayer.get_peers()))
+	pass
+	#_log(str(multiplayer.get_peers()))
 
 
 func _on_ping_pressed() -> void:
@@ -218,7 +266,7 @@ func _on_start_pressed() -> void:
 	var url = _get_server_url()
 	client.start(url, room.text, mesh.button_pressed)
 	# print a note about how you may have to wait a moment
-	_log("Waking server if needed (please wait)...")
+	_log("Help", "Waking server if needed (please wait)...")
 
 
 func _on_stop_pressed() -> void:
@@ -228,22 +276,22 @@ func _on_stop_pressed() -> void:
 # gameplay buttons
 
 func _on_rock_pressed() -> void:
-	netBroadcastInfo("play", "rock")
 	btnRock.disabled = true
 	btnPaper.disabled = false
 	btnScissors.disabled = false
+	netBroadcastInfo("play", "rock")
 
 func _on_paper_pressed() -> void:
-	netBroadcastInfo("play", "paper")
 	btnRock.disabled = false
 	btnPaper.disabled = true
 	btnScissors.disabled = false
+	netBroadcastInfo("play", "paper")
 
 func _on_scissors_pressed() -> void:
-	netBroadcastInfo("play", "scissors")
 	btnRock.disabled = false
 	btnPaper.disabled = false
 	btnScissors.disabled = true
+	netBroadcastInfo("play", "scissors")
 
 func jsCopyHack(text_to_copy: String):
 	var js_code = """
@@ -295,7 +343,7 @@ func copy_to_clipboard(text_to_copy: String):
 		# third method (not pretty but it works)
 		force_copy_prompt(text_to_copy)
 
-	_log("Copied text %s" % [text_to_copy])
+	_log("Menu", "Copied text %s" % [text_to_copy])
 
 ##
 func force_copy_prompt(text_to_copy: String):
@@ -322,8 +370,10 @@ func _on_paste_button_pressed() -> void:
 	else:
 		# Desktop fallback
 		output = DisplayServer.clipboard_get()
-	room.text = output
 	
+	_log("Menu", "Pasted text %s" % [output])
+	room.text = output
+
 	# try auto-joining room?
 	#_on_join_room_logic(result) # Optional: Auto-join immediately
 
