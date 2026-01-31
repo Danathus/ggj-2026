@@ -126,13 +126,14 @@ func _process(_delta: float) -> void:
 	poll()
 
 
-func listen(port: int) -> void:
-	if OS.has_feature("web"):
-		OS.alert("Cannot create WebSocket servers in Web exports due to browsers' limitations.")
-		return
-	stop()
-	rand.seed = int(Time.get_unix_time_from_system())
-	tcp_server.listen(port)
+# not used
+#func listen(port: int) -> void:
+#	if OS.has_feature("web"):
+#		OS.alert("Cannot create WebSocket servers in Web exports due to browsers' limitations.")
+#		return
+#	stop()
+#	rand.seed = int(Time.get_unix_time_from_system())
+#	tcp_server.listen(port)
 
 
 func stop() -> void:

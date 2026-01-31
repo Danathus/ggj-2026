@@ -1,9 +1,17 @@
 extends Control
 
 @onready var client: Node = $Client
-@onready var host: LineEdit = $VBoxContainer/Connect/Host
+#@onready var host: LineEdit = $VBoxContainer/Connect/Host
 @onready var room: LineEdit = $VBoxContainer/Connect/RoomSecret
 @onready var mesh: CheckBox = $VBoxContainer/Connect/Mesh
+
+func _get_server_url() -> String:
+	# we're not doing this anymore!
+	# return host.text
+
+	# intentionally hard-coding for now
+	return "wss://godot-web-multiplayer.onrender.com"
+
 
 func _ready() -> void:
 	client.lobby_joined.connect(_lobby_joined)
@@ -73,9 +81,7 @@ func _on_seal_pressed() -> void:
 
 
 func _on_start_pressed() -> void:
-	# url = host.text
-	# intentionally hard-coding for now
-	var url = "wss://godot-web-multiplayer.onrender.com"
+	var url = _get_server_url()
 	client.start(url, room.text, mesh.button_pressed)
 
 

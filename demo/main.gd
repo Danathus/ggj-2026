@@ -14,11 +14,12 @@ func _ready() -> void:
 		$VBoxContainer/Signaling.hide()
 
 
-func _on_listen_toggled(button_pressed: bool) -> void:
-	if button_pressed:
-		$Server.listen(int($VBoxContainer/Signaling/Port.value))
-	else:
-		$Server.stop()
+# unused
+#func _on_listen_toggled(button_pressed: bool) -> void:
+#	if button_pressed:
+#		$Server.listen(int($VBoxContainer/Signaling/Port.value))
+#	else:
+#		$Server.stop()
 
 
 func _on_LinkButton_pressed() -> void:

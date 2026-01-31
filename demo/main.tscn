@@ -22,30 +22,10 @@ grow_vertical = 2
 [node name="Signaling" type="HBoxContainer" parent="VBoxContainer" unique_id=700961395]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Signaling" unique_id=612146700]
-layout_mode = 2
-text = "Signaling server:"
-
-[node name="Port" type="SpinBox" parent="VBoxContainer/Signaling" unique_id=944569015]
-layout_mode = 2
-min_value = 1025.0
-max_value = 65535.0
-value = 9080.0
-
-[node name="ListenButton" type="Button" parent="VBoxContainer/Signaling" unique_id=672339228]
-layout_mode = 2
-toggle_mode = true
-text = "Listen"
-
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Signaling" unique_id=238478715]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="LinkButton" type="LinkButton" parent="VBoxContainer/Signaling/CenterContainer" unique_id=138857722]
-modulate = Color(1, 0.956863, 0.207843, 1)
-layout_mode = 2
-text = "Make sure to download the GDExtension WebRTC Plugin and place it in the project folder"
 
 [node name="Clients" type="GridContainer" parent="VBoxContainer" unique_id=1423236344]
 layout_mode = 2
@@ -56,17 +36,5 @@ columns = 2
 [node name="ClientUI" parent="VBoxContainer/Clients" unique_id=2106400596 instance=ExtResource("2")]
 layout_mode = 2
 
-[node name="ClientUI2" parent="VBoxContainer/Clients" unique_id=938840942 instance=ExtResource("2")]
-layout_mode = 2
-
-[node name="ClientUI3" parent="VBoxContainer/Clients" unique_id=1887101121 instance=ExtResource("2")]
-layout_mode = 2
-
-[node name="ClientUI4" parent="VBoxContainer/Clients" unique_id=1723263038 instance=ExtResource("2")]
-layout_mode = 2
-
 [node name="Server" type="Node" parent="." unique_id=1903408567]
 script = ExtResource("3")
-
-[connection signal="toggled" from="VBoxContainer/Signaling/ListenButton" to="." method="_on_listen_toggled"]
-[connection signal="pressed" from="VBoxContainer/Signaling/CenterContainer/LinkButton" to="." method="_on_LinkButton_pressed"]
