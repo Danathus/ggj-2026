@@ -1,5 +1,6 @@
-[gd_scene format=3 uid="uid://bs8415rtj3faw"]
+[gd_scene format=3 uid="uid://tsojpj03f7lk"]
 
+[ext_resource type="Script" uid="uid://bev5sgbjhyxcy" path="res://demo/ninja.gd" id="1_8etv0"]
 [ext_resource type="Texture2D" uid="uid://bptm2mcgloqqn" path="res://materials/red.png" id="1_58w1q"]
 [ext_resource type="Texture2D" uid="uid://s63qpf17ikp2" path="res://materials/blue.png" id="2_46eng"]
 [ext_resource type="Animation" uid="uid://d4jrscjumugfw" path="res://animations/test.res" id="2_yvtqg"]
@@ -38,6 +39,7 @@ _data = {
 }
 
 [node name="Ninja" type="Node2D" unique_id=215485298]
+script = ExtResource("1_8etv0")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=94485388]
 position = Vector2(576, -324)
@@ -53,7 +55,6 @@ texture = ExtResource("1_58w1q")
 libraries/ = SubResource("AnimationLibrary_npd7j")
 libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
-play_on_ready = false
 animation = "test_animation_library/test"
 
 [node name="Right Player" type="Node2D" parent="." unique_id=1584593828]
@@ -66,5 +67,4 @@ texture = ExtResource("2_46eng")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Right Player" unique_id=492000358]
 libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
-play_on_ready = false
 animation = "test_animation_library/reverse-test"

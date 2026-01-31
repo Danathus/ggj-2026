@@ -15,8 +15,25 @@ extends Control
 
 @onready var game: Node = $RockPaperScissorsGame
 
+# prepare the ninja animation
+const cutscenePrefab = preload("res://demo/ninja.tscn")
+#@onready var cutsceneRoot = logRoot
+@onready var cutsceneRoot = $HBoxContainer/VBoxContainer
+var cutsceneInstance
+
 # hard-coded set of possible letters to draw from for random initial name
 var characters = 'abcdefghijklmnopqrstuvwxyz'
+
+
+func startCutscene() -> void:
+	# lazily instantiate
+	if cutsceneInstance == null:
+		cutsceneInstance = cutscenePrefab.instantiate()
+		# add to scene tree
+		cutsceneRoot.add_child(cutsceneInstance)
+		# hack to put into good position to view
+		cutsceneInstance.position.y = 650
+		cutsceneInstance.play()
 
 
 func _get_server_url() -> String:
@@ -27,7 +44,7 @@ func _get_server_url() -> String:
 	return "wss://godot-web-multiplayer.onrender.com"
 
 
-func generate_word(chars, length):
+func generate_word(chars, length) -> String:
 	var word: String
 	var n_char = len(chars)
 	for i in range(length):
@@ -35,7 +52,7 @@ func generate_word(chars, length):
 	return word
 
 
-func netBroadcastInfo(key, value):
+func netBroadcastInfo(key, value) -> void:
 	netRecvInfo.rpc(key, value)
 
 
@@ -61,6 +78,7 @@ func netRecvInfo(key, value) -> void:
 			match value:
 				"rock":
 					game.UseRock(senderID)
+					startCutscene()
 				"paper":
 					game.UsePaper(senderID)
 				"scissors":
