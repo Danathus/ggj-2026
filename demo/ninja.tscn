@@ -1,3 +1,27 @@
 [gd_scene format=3 uid="uid://bs8415rtj3faw"]
 
+[ext_resource type="Texture2D" uid="uid://bptm2mcgloqqn" path="res://materials/red.png" id="1_58w1q"]
+[ext_resource type="Texture2D" uid="uid://s63qpf17ikp2" path="res://materials/blue.png" id="2_46eng"]
+
 [node name="Ninja" type="Node2D" unique_id=215485298]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=94485388]
+position = Vector2(576, -324)
+
+[node name="Left Player" type="Node" parent="." unique_id=1546894112]
+
+[node name="Node2D" type="Node2D" parent="Left Player" unique_id=789311375]
+position = Vector2(50, -50)
+scale = Vector2(50, 100)
+
+[node name="Sprite2D" type="Sprite2D" parent="Left Player/Node2D" unique_id=47541042]
+texture = ExtResource("1_58w1q")
+
+[node name="Right Player" type="Node" parent="." unique_id=688129116]
+
+[node name="Node2D2" type="Node2D" parent="Right Player" unique_id=1584593828]
+position = Vector2(1100, -50)
+scale = Vector2(50, 100)
+
+[node name="Sprite2D" type="Sprite2D" parent="Right Player/Node2D2" unique_id=1702573524]
+texture = ExtResource("2_46eng")
