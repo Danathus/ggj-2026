@@ -40,6 +40,8 @@ _data = {
 
 [node name="Ninja" type="Node2D" unique_id=215485298]
 script = ExtResource("1_8etv0")
+anim_left_player_path = NodePath("Left Player/AnimationPlayer")
+anim_right_player_path = NodePath("Right Player/AnimationPlayer")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=94485388]
 position = Vector2(576, -324)

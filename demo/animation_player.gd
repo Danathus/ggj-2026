@@ -1,7 +1,6 @@
 @tool
 extends AnimationPlayer
 
-@export var play_on_ready: bool = true
 var animation: String = ""
 
 func _get_property_list() -> Array[Dictionary]:
@@ -33,10 +32,7 @@ func _ready() -> void:
 		notify_property_list_changed()
 		return
 
-	if play_on_ready:
-		play_autoplay_animation()
-
-func play_autoplay_animation() -> void:
+func play_animation() -> void:
 	if animation != "":
 		if has_animation(animation):
 			play(animation)
