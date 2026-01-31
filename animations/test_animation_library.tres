@@ -1,0 +1,10 @@
+[gd_resource type="AnimationLibrary" format=3 uid="uid://dpvu0sfs54fx8"]
+
+[ext_resource type="Animation" uid="uid://te7gq43r4ik0" path="res://animations/reverse-test.res" id="1_xj5kt"]
+[ext_resource type="Animation" uid="uid://d4jrscjumugfw" path="res://animations/test.res" id="2_q7p3d"]
+
+[resource]
+_data = {
+&"reverse-test": ExtResource("1_xj5kt"),
+&"test": ExtResource("2_q7p3d")
+}

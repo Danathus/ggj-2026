@@ -2,26 +2,67 @@
 
 [ext_resource type="Texture2D" uid="uid://bptm2mcgloqqn" path="res://materials/red.png" id="1_58w1q"]
 [ext_resource type="Texture2D" uid="uid://s63qpf17ikp2" path="res://materials/blue.png" id="2_46eng"]
+[ext_resource type="Animation" uid="uid://d4jrscjumugfw" path="res://animations/test.res" id="2_yvtqg"]
+[ext_resource type="AnimationLibrary" uid="uid://dpvu0sfs54fx8" path="res://animations/test_animation_library.tres" id="3_3aiyw"]
+[ext_resource type="Script" uid="uid://bae2hyvoy3nf2" path="res://demo/animation_player.gd" id="4_3aiyw"]
+
+[sub_resource type="Animation" id="Animation_8etv0"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_npd7j"]
+_data = {
+&"RESET": SubResource("Animation_8etv0"),
+&"test": ExtResource("2_yvtqg")
+}
 
 [node name="Ninja" type="Node2D" unique_id=215485298]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=94485388]
 position = Vector2(576, -324)
 
-[node name="Left Player" type="Node" parent="." unique_id=1546894112]
-
-[node name="Node2D" type="Node2D" parent="Left Player" unique_id=789311375]
+[node name="Left Player" type="Node2D" parent="." unique_id=789311375]
 position = Vector2(50, -50)
 scale = Vector2(50, 100)
 
-[node name="Sprite2D" type="Sprite2D" parent="Left Player/Node2D" unique_id=47541042]
+[node name="Sprite2D" type="Sprite2D" parent="Left Player" unique_id=47541042]
 texture = ExtResource("1_58w1q")
 
-[node name="Right Player" type="Node" parent="." unique_id=688129116]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Left Player" unique_id=2067930485]
+libraries/ = SubResource("AnimationLibrary_npd7j")
+libraries/test_animation_library = ExtResource("3_3aiyw")
+script = ExtResource("4_3aiyw")
+animation = "test_animation_library/test"
 
-[node name="Node2D2" type="Node2D" parent="Right Player" unique_id=1584593828]
+[node name="Right Player" type="Node2D" parent="." unique_id=1584593828]
 position = Vector2(1100, -50)
 scale = Vector2(50, 100)
 
-[node name="Sprite2D" type="Sprite2D" parent="Right Player/Node2D2" unique_id=1702573524]
+[node name="Sprite2D" type="Sprite2D" parent="Right Player" unique_id=1702573524]
 texture = ExtResource("2_46eng")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Right Player" unique_id=492000358]
+libraries/test_animation_library = ExtResource("3_3aiyw")
+script = ExtResource("4_3aiyw")
+animation = "test_animation_library/reverse-test"
