@@ -91,6 +91,11 @@ func netRecvInfo(key, value) -> void:
 			var winnerData = game_data.get(winnerID, {})
 			var winnerName = winnerData.get("name", "undefined")
 			_log("[Game] Current winner: peer %d (name %s)" % [winnerID, winnerName])
+		"target":
+			var attackerName = playerData.get("name", "null")
+			var defenderData = game_data.get(value, {})
+			var defenderName = defenderData.get("name", "null")
+			_log("[Game] %s wants to fight %s" % [attackerName, defenderName])
 
 
 func updatePlayersList() -> void:
@@ -108,6 +113,17 @@ func updatePlayersList() -> void:
 	playersList.clear()
 	for name in names:
 		playersList.add_item(name)
+
+
+func find_player_network_id_from_name(name) -> int:
+	# just do a linear search for now
+	for player_id in game_data:
+		var playerData = game_data[player_id]
+		if playerData.get("name", "") == name:
+			return player_id
+
+	# indicate failure
+	return -1
 
 
 func _ready() -> void:
@@ -307,3 +323,15 @@ func _on_paste_button_pressed() -> void:
 	
 	# try auto-joining room?
 	#_on_join_room_logic(result) # Optional: Auto-join immediately
+
+
+func _on_players_list_item_selected(index: int) -> void:
+	# what's the name at this index?
+	var name = playersList.get_item_text(index)
+	
+	# what's the network ID for this name?
+	var network_id = find_player_network_id_from_name(name)
+
+	# indicate that you want to fight this guy
+	# if a match is made, you'll fight
+	netBroadcastInfo("target", network_id)

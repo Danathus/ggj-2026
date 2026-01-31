@@ -163,3 +163,4 @@ size_flags_vertical = 3
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl/Rock" to="." method="_on_rock_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl/Paper" to="." method="_on_paper_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl/Scissors" to="." method="_on_scissors_pressed"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer2/PlayersList" to="." method="_on_players_list_item_selected"]
