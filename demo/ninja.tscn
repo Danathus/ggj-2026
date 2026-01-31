@@ -6,6 +6,7 @@
 [ext_resource type="Animation" uid="uid://d4jrscjumugfw" path="res://animations/test.res" id="2_yvtqg"]
 [ext_resource type="AnimationLibrary" uid="uid://dpvu0sfs54fx8" path="res://animations/test_animation_library.tres" id="3_3aiyw"]
 [ext_resource type="Script" uid="uid://bae2hyvoy3nf2" path="res://demo/animation_player.gd" id="4_3aiyw"]
+[ext_resource type="AudioStream" uid="uid://dnie2acsvnsnc" path="res://audio/running-363346-double.mp3" id="6_npd7j"]
 
 [sub_resource type="Animation" id="Animation_8etv0"]
 length = 0.001
@@ -46,6 +47,9 @@ anim_right_player_path = NodePath("Right Player/AnimationPlayer")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=94485388]
 position = Vector2(576, -324)
 
+[node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=2027597381]
+current = true
+
 [node name="Left Player" type="Node2D" parent="." unique_id=789311375]
 position = Vector2(50, -50)
 scale = Vector2(50, 100)
@@ -59,6 +63,9 @@ libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
 animation = "test_animation_library/test"
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Left Player" unique_id=1797626336]
+stream = ExtResource("6_npd7j")
+
 [node name="Right Player" type="Node2D" parent="." unique_id=1584593828]
 position = Vector2(1100, -50)
 scale = Vector2(50, 100)
@@ -70,3 +77,5 @@ texture = ExtResource("2_46eng")
 libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
 animation = "test_animation_library/reverse-test"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Right Player" unique_id=529746145]
