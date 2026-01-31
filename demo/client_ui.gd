@@ -283,3 +283,22 @@ func force_copy_prompt(text_to_copy: String):
 
 func _on_copy_button_pressed() -> void:
 	copy_to_clipboard(room.text)
+
+
+func _on_paste_button_pressed() -> void:
+	var output = ""
+	if OS.get_name() == "Web":
+		# 1. Ask the user to paste into a native prompt
+		var js_code = "prompt('Please paste (Ctrl+V) your Room Key here:');"
+		var result = JavaScriptBridge.eval(js_code)
+		
+		# 2. 'result' will be null if they hit Cancel, or the string if they hit OK
+		if result:
+			output = result
+	else:
+		# Desktop fallback
+		output = DisplayServer.clipboard_get()
+	room.text = output
+	
+	# try auto-joining room?
+	#_on_join_room_logic(result) # Optional: Auto-join immediately
