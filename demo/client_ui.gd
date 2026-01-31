@@ -94,12 +94,12 @@ func netRecvInfo(key, value) -> void:
 
 
 func updatePlayersList() -> void:
-	_log("trying to updatePlayersList()")
-
 	# get list of players
 	var names = []
 	for playerData in game_data.values():
-		names.append(playerData["name"])
+		var name = playerData.get("name", null)
+		if name:
+			names.append(name)
 
 	# alphabetize list
 	names.sort()
@@ -121,9 +121,14 @@ func _ready() -> void:
 	multiplayer.server_disconnected.connect(_mp_server_disconnect)
 	multiplayer.peer_connected.connect(_mp_peer_connected)
 	multiplayer.peer_disconnected.connect(_mp_peer_disconnected)
-	
+
 	# randomly fill in a player name
 	playerName.text = generate_word(characters, 6)
+
+	# default to a random selection between rock, paper, and scissors
+	var choices = [btnRock, btnPaper, btnScissors]
+	var selection = choices.pick_random()
+	selection.emit_signal("pressed")
 
 
 @rpc("any_peer", "call_local")
