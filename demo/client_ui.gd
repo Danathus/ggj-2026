@@ -221,6 +221,65 @@ func _on_scissors_pressed() -> void:
 	btnPaper.disabled = false
 	btnScissors.disabled = true
 
+func jsCopyHack(text_to_copy: String):
+	var js_code = """
+	// 1. Create a temporary text element
+	var textArea = document.createElement("textarea");
+	textArea.value = '%s';
+
+	// 2. Make it invisible but part of the page
+	textArea.style.position = "fixed";
+	textArea.style.left = "-9999px";
+	textArea.style.top = "0";
+	document.body.appendChild(textArea);
+
+	// 3. Select the text
+	textArea.focus();
+	textArea.select();
+
+	// 4. The Magic: Execute the "old" copy command
+	try {
+		var successful = document.execCommand('copy');
+		var msg = successful ? 'successful' : 'unsuccessful';
+		console.log('Fallback copy command was ' + msg);
+	} catch (err) {
+		console.error('Fallback: Oops, unable to copy', err);
+	}
+
+	// 5. Clean up
+	document.body.removeChild(textArea);
+	""" % text_to_copy
+
+	JavaScriptBridge.eval(js_code)
+
+
+func copy_to_clipboard(text_to_copy: String):
+	# 1. Try the standard Godot way (works on Desktop/Mobile)
+	DisplayServer.clipboard_set(text_to_copy)
+	
+	# 2. If we are on the Web, try a JavaScript fallback
+	if OS.get_name() == "Web":
+		# Below is not working on itch.io
+		## This executes raw JS in the browser
+		## We use the 'navigator.clipboard' API directly
+		#var js_code = "navigator.clipboard.writeText('%s').then(function() { console.log('Copy Success'); }, function(err) { console.error('Copy Failed', err); });" % text_to_copy
+		#JavaScriptBridge.eval(js_code)
+		
+		# second method (also doesn't work)
+		#jsCopyHack(text_to_copy)
+		
+		# third method (not pretty but it works)
+		force_copy_prompt(text_to_copy)
+
+	_log("Copied text %s" % [text_to_copy])
+
+##
+func force_copy_prompt(text_to_copy: String):
+	if OS.get_name() == "Web":
+		# Opens a browser prompt: "Copy this key: [ text_to_copy ]"
+		# This cannot trigger a "Clipboard API" error because it doesn't use the clipboard API!
+		var js_code = "prompt('Press Ctrl+C to copy your key:', '%s');" % text_to_copy
+		JavaScriptBridge.eval(js_code)
 
 func _on_copy_button_pressed() -> void:
-	DisplayServer.clipboard_set(room.text)
+	copy_to_clipboard(room.text)
