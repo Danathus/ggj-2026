@@ -2,18 +2,30 @@
 extends AnimationPlayer
 
 @export var play_on_ready: bool = true
-@export var run_animation: bool = false
-@export var animation: String = ""
+var animation: String = ""
 
-func _validate_property(property: Dictionary) -> void:
-	if property.get("name") == &"animation":
-		var names := get_animation_list()
-		if names.is_empty():
-			names = ["<none>"]
-		property["type"] = TYPE_STRING
-		property["hint"] = PROPERTY_HINT_ENUM
-		property["hint_string"] = ",".join(names)
-		property["usage"] |= PROPERTY_USAGE_EDITOR | PROPERTY_USAGE_SCRIPT_VARIABLE
+func _get_property_list() -> Array[Dictionary]:
+	var names := get_animation_list()
+	return [
+		{
+			"name": "animation",
+			"type": TYPE_STRING,
+			"hint": PROPERTY_HINT_ENUM,
+			"hint_string": ",".join(names),
+			"usage": PROPERTY_USAGE_EDITOR | PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_SCRIPT_VARIABLE
+		}
+	]
+
+func _get(property: StringName) -> Variant:
+	if property == &"animation":
+		return animation
+	return null
+
+func _set(property: StringName, value: Variant) -> bool:
+	if property == &"animation":
+		animation = String(value)
+		return true
+	return false
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -21,13 +33,12 @@ func _ready() -> void:
 		notify_property_list_changed()
 		return
 
-	if play_on_ready and animation != "" and animation != "<none>":
+	if play_on_ready:
+		play_autoplay_animation()
+
+func play_autoplay_animation() -> void:
+	if animation != "":
 		if has_animation(animation):
 			play(animation)
 		else:
-			push_warning("Autoplay animation not found: %s" % animation)
-		
-func _process(delta: float) -> void:
-	if (run_animation):
-		if animation != "" and animation != "<none>" and has_animation(animation):
-			play(animation)
+			push_warning("Animation not found: %s" % animation)

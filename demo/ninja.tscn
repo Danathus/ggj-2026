@@ -53,6 +53,7 @@ texture = ExtResource("1_58w1q")
 libraries/ = SubResource("AnimationLibrary_npd7j")
 libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
+play_on_ready = false
 animation = "test_animation_library/test"
 
 [node name="Right Player" type="Node2D" parent="." unique_id=1584593828]
@@ -65,4 +66,5 @@ texture = ExtResource("2_46eng")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Right Player" unique_id=492000358]
 libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
+play_on_ready = false
 animation = "test_animation_library/reverse-test"
