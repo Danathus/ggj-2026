@@ -24,6 +24,11 @@ var cutsceneInstance
 # hard-coded set of possible letters to draw from for random initial name
 var characters = 'abcdefghijklmnopqrstuvwxyz'
 
+# buttons
+@onready var btnRock = $HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl/Rock
+@onready var btnPaper = $HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl/Paper
+@onready var btnScissors = $HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl/Scissors
+
 
 func startCutscene() -> void:
 	# lazily instantiate
@@ -188,9 +193,18 @@ func _on_stop_pressed() -> void:
 
 func _on_rock_pressed() -> void:
 	netBroadcastInfo("play", "rock")
+	btnRock.disabled = true
+	btnPaper.disabled = false
+	btnScissors.disabled = false
 
 func _on_paper_pressed() -> void:
 	netBroadcastInfo("play", "paper")
+	btnRock.disabled = false
+	btnPaper.disabled = true
+	btnScissors.disabled = false
 
 func _on_scissors_pressed() -> void:
 	netBroadcastInfo("play", "scissors")
+	btnRock.disabled = false
+	btnPaper.disabled = false
+	btnScissors.disabled = true

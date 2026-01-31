@@ -93,6 +93,10 @@ text = "Print peers"
 [node name="GameCtrl" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1223143156]
 layout_mode = 2
 
+[node name="PlayLabel" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl" unique_id=1205753112]
+layout_mode = 2
+text = "Play"
+
 [node name="Rock" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl" unique_id=1420693998]
 layout_mode = 2
 text = "Rock"
