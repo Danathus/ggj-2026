@@ -155,7 +155,6 @@ size_flags_vertical = 3
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/Connect/CopyButton" to="." method="_on_copy_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/Connect/PasteButton" to="." method="_on_paste_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/Connect/PasteButton" to="." method="_on_copy_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Stop" to="." method="_on_stop_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Seal" to="." method="_on_seal_pressed"]
