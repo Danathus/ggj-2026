@@ -178,6 +178,10 @@ func netRecvInfo(key, value) -> void:
 				winnerData["wins"] = winnerData.get("wins", 0) + 1
 				loserData["losses"] = loserData.get("losses", 0) + 1
 
+				# both players should also automatically deselect their target
+				winnerData["target"] = -1
+				loserData["target"] = -1
+
 				#if winnerData["wins"] == null:
 					#winnerData["wins"] = 1
 				#else:
