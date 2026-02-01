@@ -94,6 +94,11 @@ func startCutscene(leftData, rightData, winnerDesc) -> void:
 	var rightColor = rightData.get("color", Color.WHITE)
 	cutsceneInstance.set_player_colors(leftColor, rightColor)
 
+	# assign the plays
+	var leftChoice = leftData.get("play", "invalid")
+	var rightChoice = rightData.get("play", "invalid")
+	cutsceneInstance.set_player_choices(leftChoice, rightChoice)
+
 	# decide who wins
 	cutsceneInstance.set_winner(winnerDesc)
 

@@ -96,6 +96,27 @@ func set_player_colors(left_player_color: Color, right_player_color: Color) -> v
 	sprite_right_player.modulate = right_player_color
 
 
+const rock_texture : Texture2D = preload("res://demo/rock_cat_10th.png")
+const paper_texture : Texture2D = preload("res://demo/paper_ninja_10th.png")
+const scissors_texture : Texture2D = preload("res://demo/elephant_10th.png")
+
+
+func _choice_to_texture(choice: String) -> Texture2D:
+	match choice:
+		"rock":
+			return rock_texture
+		"paper":
+			return paper_texture
+		"scissors":
+			return scissors_texture
+		_:
+			return paper_texture
+
+func set_player_choices(left_player_choice: String, right_player_choice: String) -> void:
+	sprite_left_player.texture = _choice_to_texture(left_player_choice)
+	sprite_right_player.texture = _choice_to_texture(right_player_choice)
+
+
 # either "left" or "right" or "tie" -- set before play()
 func set_winner(winner_description) -> void:
 	winning_side = winner_description
