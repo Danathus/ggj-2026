@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cuc6jph56vf2c" path="res://materials/white.png" id="2_lr8qu"]
 [ext_resource type="Animation" uid="uid://d4jrscjumugfw" path="res://animations/test.res" id="2_yvtqg"]
 [ext_resource type="AnimationLibrary" uid="uid://dpvu0sfs54fx8" path="res://animations/test_animation_library.tres" id="3_3aiyw"]
+[ext_resource type="Texture2D" uid="uid://bsl4y3fn7ksg2" path="res://materials/ninja_mask.png" id="3_lr8qu"]
 [ext_resource type="Script" uid="uid://bae2hyvoy3nf2" path="res://demo/animation_player.gd" id="4_3aiyw"]
 [ext_resource type="AudioStream" uid="uid://dnie2acsvnsnc" path="res://audio/running-363346-double.mp3" id="6_npd7j"]
 [ext_resource type="Script" uid="uid://7dm2n7yrw8o" path="res://demo/audio_stream_player_2d.gd" id="7_k0t1t"]
@@ -12,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://b0ltlyuav2wdn" path="res://audio/jump-landing3.mp3" id="10_lr8qu"]
 [ext_resource type="AudioStream" uid="uid://bqtfiemwlh6kf" path="res://audio/jumping.mp3" id="11_j8g7q"]
 [ext_resource type="AudioStream" uid="uid://b32t7234onbmr" path="res://audio/whoosh.mp3" id="12_lr8qu"]
+[ext_resource type="Texture2D" uid="uid://bkelashuqsu6v" path="res://materials/background.png" id="14_huc6e"]
 
 [sub_resource type="Animation" id="Animation_8etv0"]
 length = 0.001
@@ -64,6 +66,11 @@ scale = Vector2(50, 100)
 [node name="Sprite2D" type="Sprite2D" parent="Left Player" unique_id=47541042]
 texture = ExtResource("2_lr8qu")
 
+[node name="NinjaMask" type="Sprite2D" parent="Left Player/Sprite2D" unique_id=1761736321]
+position = Vector2(-0.22000003, -0.11999999)
+scale = Vector2(0.004, 0.002)
+texture = ExtResource("3_lr8qu")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Left Player" unique_id=2067930485]
 libraries/ = SubResource("AnimationLibrary_npd7j")
 libraries/test_animation_library = ExtResource("3_3aiyw")
@@ -85,6 +92,11 @@ scale = Vector2(50, 100)
 [node name="Sprite2D" type="Sprite2D" parent="Right Player" unique_id=1702573524]
 texture = ExtResource("2_lr8qu")
 
+[node name="NinjaMask2" type="Sprite2D" parent="Right Player/Sprite2D" unique_id=56300246]
+position = Vector2(0.24, -0.12)
+scale = Vector2(-0.004, 0.002)
+texture = ExtResource("3_lr8qu")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Right Player" unique_id=492000358]
 libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
@@ -96,3 +108,9 @@ landingClips = Array[AudioStream]([ExtResource("8_wfboo"), ExtResource("9_j8g7q"
 runningClips = Array[AudioStream]([ExtResource("6_npd7j")])
 jumpingClips = Array[AudioStream]([ExtResource("11_j8g7q")])
 whooshClip = ExtResource("12_lr8qu")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1216188403]
+z_index = -1
+position = Vector2(575, -328)
+scale = Vector2(0.363, 0.483)
+texture = ExtResource("14_huc6e")
