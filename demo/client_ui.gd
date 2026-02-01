@@ -34,7 +34,7 @@ var isConnectedToLobby = false;
 # we can hard-code for now which we want to show
 var logsEnabled = {
 	"Signaling": true,
-	"Multiplayer": true,
+	"Multiplayer": false,
 	"Game": true,
 	"Menu": true,
 	"Help": true
@@ -117,17 +117,13 @@ func netRecvInfo(key, value) -> void:
 			match value:
 				"rock":
 					game.UseRock(senderID)
-					startCutscene()
 				"paper":
 					game.UsePaper(senderID)
 				"scissors":
 					game.UseScissor(senderID)
-			# try to resolve the round
-			var winnerID = game.resolve_round()
-			var winnerData = game_data.get(winnerID, {})
-			var winnerName = winnerData.get("name", "undefined")
-			_log("Game", "Current winner: peer %d (name %s)" % [winnerID, winnerName])
 		"target":
+			if value == -1:
+				return
 			var attackerName = playerData.get("name", "null")
 			var defenderData = game_data.get(value, {})
 			var defenderName = defenderData.get("name", "null")
@@ -135,6 +131,29 @@ func netRecvInfo(key, value) -> void:
 			if attackerName == defenderName:
 				logString += " (silly %s!)" % [attackerName]
 			_log("Game", logString)
+			# if there's a match made, engage the game
+			if senderID != value and game_data.get(value, {}).get("target", -1) == senderID:
+				_log("Game", "Fight begins: %s vs %s!" % [attackerName, defenderName])
+				startCutscene()
+
+				# try to resolve the round
+				var winnerID = game.resolve_round(senderID, value)
+				
+				if winnerID == -1:
+					_log("Game", "Something went wrong! Inconclusive!")
+					return
+				if winnerID == 0:
+					_log("Game", "%s ties with %s! Stalemate!" % [attackerName, defenderName])
+					return
+
+				# there is a winner and a loser -- report the result
+				var winnerData = game_data.get(winnerID, {})
+				var winnerName = winnerData.get("name", "undefined")
+				var loserID = value if senderID == winnerID else senderID
+				var loserData = game_data.get(loserID, {})
+				var loserName = loserData.get("name", "undefined")
+				#_log("Game", "Current winner: peer %d (name %s)" % [winnerID, winnerName])
+				_log("Game", "%s beats %s!" % [winnerName, loserName])
 
 
 func updatePlayersList() -> void:
