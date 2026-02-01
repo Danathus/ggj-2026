@@ -113,8 +113,14 @@ func netRecvInfo(key, value) -> void:
 	var senderID = multiplayer.get_remote_sender_id()
 
 	_log("Multiplayer", "Net Recv Info from peer %d: key: %s value: %s" % [senderID, key, value])
-	var playerData = game_data.get(senderID, {})
+	var playerData = game_data.get(senderID, null)
+
+	if playerData == null:
+		playerData = {
+		"wins": 0
+		}
 	game_data[senderID] = playerData
+
 	playerData[key] = value
 	match key:
 		"name":
@@ -162,8 +168,16 @@ func netRecvInfo(key, value) -> void:
 				var loserID = value if senderID == winnerID else senderID
 				var loserData = game_data.get(loserID, {})
 				var loserName = loserData.get("name", "undefined")
+				
+				winnerData["wins"] = winnerData.get("wins", 0) + 1
+				#if winnerData["wins"] == null:
+					#winnerData["wins"] = 1
+				#else:
+					#winnerData["wins"] = winnerData["wins"] + 1
 				#_log("Game", "Current winner: peer %d (name %s)" % [winnerID, winnerName])
 				_log("Game", "%s beats %s!" % [winnerName, loserName])
+				_log("Game", "Winner, %s now has now won %d time(s)" % [winnerName, winnerData["wins"]])
+				_log("Game", "Loser, %s has only won %d time(s)" % [loserName, loserData["wins"]])
 
 
 func generate_random_hsv_color() -> Color:
