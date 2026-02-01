@@ -52,6 +52,10 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 editable = false
 
+[node name="Spacer1" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=738631143]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="Connect" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=720566541]
 layout_mode = 2
 
@@ -84,43 +88,60 @@ icon = ExtResource("5_sgolo")
 icon_alignment = 1
 
 [node name="Mesh" type="CheckBox" parent="HBoxContainer/VBoxContainer/HBoxContainer2/Connect" unique_id=1035447373]
+visible = false
 layout_mode = 2
 disabled = true
 button_pressed = true
 text = "Mesh"
 
+[node name="Spacer2" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=2000030308]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=2016933979]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=1892774963]
+layout_mode = 2
+text = "Game:"
 
 [node name="Start" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=341820097]
 layout_mode = 2
 text = "Start"
 
 [node name="Stop" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=1768504484]
+visible = false
 layout_mode = 2
 disabled = true
 text = "Stop"
 
 [node name="Seal" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=2085631893]
+visible = false
 layout_mode = 2
 disabled = true
 text = "Seal"
 
 [node name="Ping" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=1317364327]
+visible = false
 layout_mode = 2
 text = "Ping"
 
 [node name="Peers" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=571306090]
+visible = false
 layout_mode = 2
 disabled = true
 text = "Print peers"
+
+[node name="Spacer3" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=192949272]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="GameCtrl" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1223143156]
 layout_mode = 2
 
 [node name="PlayLabel" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl" unique_id=1205753112]
 layout_mode = 2
-text = "Play"
+text = "Play:"
 
 [node name="Rock" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl" unique_id=1420693998]
 layout_mode = 2
@@ -145,7 +166,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 size_flags_vertical = 5
-text = "Players"
+text = "Players:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
