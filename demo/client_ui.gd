@@ -18,6 +18,9 @@ extends Control
 
 @onready var startButton = $HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer
 
+@onready var bgMusic = $"Background Music"
+
+
 # prepare the ninja animation
 const cutscenePrefab = preload("res://demo/ninja.tscn")
 #@onready var cutsceneRoot = logRoot
@@ -416,3 +419,14 @@ func _on_player_selected(network_id: int) -> void:
 	# indicate that you want to fight this guy
 	# if a match is made, you'll fight
 	netBroadcastInfo("target", network_id)
+
+
+func _on_sfx_check_box_toggled(toggled_on: bool) -> void:
+	# this actually disables all audio
+	# disabling just sound effects would be a lot more complicated
+	# so not bothering with that just now!
+	AudioServer.set_bus_mute(0, not toggled_on)
+
+
+func _on_music_check_box_toggled(toggled_on: bool) -> void:
+	bgMusic.stream_paused = not toggled_on

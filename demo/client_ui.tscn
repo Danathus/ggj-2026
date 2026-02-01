@@ -145,6 +145,24 @@ text = "Print peers"
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="AudioOptions" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1169957224]
+layout_mode = 2
+
+[node name="musicCheckBox" type="CheckBox" parent="HBoxContainer/VBoxContainer/HBoxContainer2/AudioOptions" unique_id=1040590090]
+layout_mode = 2
+button_pressed = true
+text = "Music"
+
+[node name="sfxCheckBox" type="CheckBox" parent="HBoxContainer/VBoxContainer/HBoxContainer2/AudioOptions" unique_id=1676920714]
+layout_mode = 2
+button_pressed = true
+text = "SFX
+"
+
+[node name="Spacer4" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1134983985]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="GameCtrl" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1223143156]
 layout_mode = 2
 
@@ -185,6 +203,8 @@ autoplay = true
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Seal" to="." method="_on_seal_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Ping" to="." method="_on_ping_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Peers" to="." method="_on_peers_pressed"]
+[connection signal="toggled" from="HBoxContainer/VBoxContainer/HBoxContainer2/AudioOptions/musicCheckBox" to="." method="_on_music_check_box_toggled"]
+[connection signal="toggled" from="HBoxContainer/VBoxContainer/HBoxContainer2/AudioOptions/sfxCheckBox" to="." method="_on_sfx_check_box_toggled"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl/Rock" to="." method="_on_rock_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl/Paper" to="." method="_on_paper_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl/Scissors" to="." method="_on_scissors_pressed"]
