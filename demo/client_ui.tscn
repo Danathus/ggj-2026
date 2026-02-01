@@ -163,6 +163,15 @@ text = "SFX
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="drawnCheckBox" type="CheckBox" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1656854771]
+layout_mode = 2
+button_pressed = true
+text = "Drawn Sprites"
+
+[node name="Spacer5" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=3646851]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="GameCtrl" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1223143156]
 layout_mode = 2
 
@@ -205,6 +214,7 @@ autoplay = true
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/Peers" to="." method="_on_peers_pressed"]
 [connection signal="toggled" from="HBoxContainer/VBoxContainer/HBoxContainer2/AudioOptions/musicCheckBox" to="." method="_on_music_check_box_toggled"]
 [connection signal="toggled" from="HBoxContainer/VBoxContainer/HBoxContainer2/AudioOptions/sfxCheckBox" to="." method="_on_sfx_check_box_toggled"]
+[connection signal="toggled" from="HBoxContainer/VBoxContainer/HBoxContainer2/drawnCheckBox" to="." method="_on_drawn_check_box_toggled"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl/Rock" to="." method="_on_rock_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl/Paper" to="." method="_on_paper_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/GameCtrl/Scissors" to="." method="_on_scissors_pressed"]

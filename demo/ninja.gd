@@ -27,6 +27,8 @@ var winning_side = "tie" # will be overridden
 var _pulse_elapsed := -1.0
 var _pulse_duration := 1.0
 
+var show_hand_drawn_sprites = true # default setting can be overridden by UI
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# delete this "set" after this is properly hooked up
@@ -113,8 +115,9 @@ func _choice_to_texture(choice: String) -> Texture2D:
 			return paper_texture
 
 func set_player_choices(left_player_choice: String, right_player_choice: String) -> void:
-	sprite_left_player.texture = _choice_to_texture(left_player_choice)
-	sprite_right_player.texture = _choice_to_texture(right_player_choice)
+	if show_hand_drawn_sprites:
+		sprite_left_player.texture = _choice_to_texture(left_player_choice)
+		sprite_right_player.texture = _choice_to_texture(right_player_choice)
 
 
 # either "left" or "right" or "tie" -- set before play()
@@ -143,3 +146,10 @@ func _get_background_material() -> ShaderMaterial:
 	if not background_sprite:
 		return null
 	return background_sprite.material as ShaderMaterial
+
+
+# in practice most likely set once before animation starts
+# but, if we can support live swapping, that's ideal
+func toggleShowHandDrawn(use_hand_drawn) -> void:
+	show_hand_drawn_sprites = use_hand_drawn
+	# todo -- apply (live potentially)

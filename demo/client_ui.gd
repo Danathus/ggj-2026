@@ -20,6 +20,8 @@ extends Control
 
 @onready var bgMusic = $"Background Music"
 
+@onready var use_hand_drawn: CheckBox = $HBoxContainer/VBoxContainer/HBoxContainer2/drawnCheckBox
+
 
 # prepare the ninja animation
 const cutscenePrefab = preload("res://demo/ninja.tscn")
@@ -98,6 +100,9 @@ func startCutscene(leftData, rightData, winnerDesc) -> void:
 	var leftChoice = leftData.get("play", "invalid")
 	var rightChoice = rightData.get("play", "invalid")
 	cutsceneInstance.set_player_choices(leftChoice, rightChoice)
+
+	# set art style
+	cutsceneInstance.toggleShowHandDrawn(use_hand_drawn.button_pressed)
 
 	# decide who wins
 	cutsceneInstance.set_winner(winnerDesc)
@@ -475,3 +480,8 @@ func _on_sfx_check_box_toggled(toggled_on: bool) -> void:
 
 func _on_music_check_box_toggled(toggled_on: bool) -> void:
 	bgMusic.stream_paused = not toggled_on
+
+
+func _on_drawn_check_box_toggled(toggled_on: bool) -> void:
+	if cutsceneInstance:
+		cutsceneInstance.toggleShowHandDrawn(toggled_on)
