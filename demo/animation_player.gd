@@ -2,6 +2,9 @@
 extends AnimationPlayer
 
 var animation: String = ""
+@export var particle_system_path: NodePath = NodePath()
+
+@onready var particle_system := get_node_or_null(particle_system_path)
 
 func _get_property_list() -> Array[Dictionary]:
 	var names := get_animation_list()
@@ -32,9 +35,21 @@ func _ready() -> void:
 		notify_property_list_changed()
 		return
 
+	particle_system = get_node_or_null(particle_system_path)
+
 func play_animation() -> void:
 	if animation != "":
 		if has_animation(animation):
 			play(animation)
 		else:
 			push_warning("Animation not found: %s" % animation)
+
+func set_particles_enabled(enabled: bool) -> void:
+	if not particle_system:
+		push_warning("Particle system not set.")
+		return
+
+	if particle_system.has_method("set_emitting"):
+		particle_system.set("emitting", enabled)
+	else:
+		push_warning("Particle system does not support 'emitting': %s" % particle_system.name)
