@@ -119,6 +119,8 @@ func netRecvInfo(key, value) -> void:
 	match key:
 		"name":
 			playersList.update(game_data)
+		"color":
+			playersList.update(game_data)
 		"play":
 			match value:
 				"rock":
@@ -358,7 +360,7 @@ func copy_to_clipboard(text_to_copy: String):
 
 	_log("Menu", "Copied text %s" % [text_to_copy])
 
-##
+
 func force_copy_prompt(text_to_copy: String):
 	if OS.get_name() == "Web":
 		# Opens a browser prompt: "Copy this key: [ text_to_copy ]"
@@ -392,7 +394,6 @@ func _on_paste_button_pressed() -> void:
 
 
 func _on_player_selected(network_id: int) -> void:
-
 	audio_stream.stream = player_select_audio_clip
 	audio_stream.play()
 	# indicate that you want to fight this guy

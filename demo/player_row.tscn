@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dgmlmktmpgoln"]
+
+[ext_resource type="Script" uid="uid://part5r6yx2gi" path="res://demo/player_row.gd" id="1_ja87f"]
+
+[node name="MarginContainer" type="MarginContainer" unique_id=1726403438]
+offset_right = 136.0
+offset_bottom = 23.0
+size_flags_horizontal = 3
+script = ExtResource("1_ja87f")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=931633698]
+layout_mode = 2
+
+[node name="PlayerColor" type="ColorRect" parent="HBoxContainer" unique_id=1111028977]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="HBoxContainer" unique_id=1033596079]
+layout_mode = 2
+text = "Experiment"
+
+[node name="Button" type="Button" parent="." unique_id=1887650972]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
