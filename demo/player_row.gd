@@ -2,6 +2,8 @@ extends MarginContainer
 
 @onready var nameLabel: Label = $HBoxContainer/NameLabel
 @onready var playerColor: ColorRect = $HBoxContainer/PlayerColor
+@onready var playerScore: Label = $HBoxContainer/ScoreLabel
+
 
 var index = 0 # communicated from level above
 
@@ -28,6 +30,10 @@ func get_text() -> String:
 
 func set_color(color) -> void:
 	playerColor.color = color
+
+
+func set_score(score: int) -> void:
+	playerScore.text = str(score)
 
 
 func _on_button_pressed() -> void:

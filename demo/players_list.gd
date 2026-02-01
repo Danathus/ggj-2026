@@ -57,6 +57,7 @@ func update(in_game_data) -> void:
 		# Now you can access normal nodes!
 		row.set_text(name)
 		row.set_color(p_info.get("color", Color.WHITE))
+		row.set_score(p_info.get("wins", 0))
 
 		##
 		# todo: make yourself bold
