@@ -188,7 +188,7 @@ current = true
 
 [node name="Left Player" type="Node2D" parent="." unique_id=789311375]
 position = Vector2(110, -80)
-scale = Vector2(50, 50)
+scale = Vector2(40, 40)
 
 [node name="Sprite2D" type="Sprite2D" parent="Left Player" unique_id=47541042]
 scale = Vector2(0.02, 0.02)
@@ -235,7 +235,7 @@ whooshClip = ExtResource("12_lr8qu")
 
 [node name="Right Player" type="Node2D" parent="." unique_id=1584593828]
 position = Vector2(1050, -80)
-scale = Vector2(50, 50)
+scale = Vector2(40, 40)
 
 [node name="Sprite2D" type="Sprite2D" parent="Right Player" unique_id=1702573524]
 position = Vector2(-21, 0)
