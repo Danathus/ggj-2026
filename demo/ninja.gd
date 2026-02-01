@@ -22,6 +22,8 @@ extends Node
 
 @onready var background_sprite := get_node(background_path) as CanvasItem
 
+@onready var client_ui := get_tree().get_first_node_in_group("client_ui")
+
 var winning_side = "tie" # will be overridden
 
 var _pulse_elapsed := -1.0
@@ -37,6 +39,9 @@ var right_player_choice = "rock"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if not client_ui:
+		_resolve_client_ui()
+
 	# delete this "set" after this is properly hooked up
 	#set_player_colors(Color.RED, Color.BLUE)
 
@@ -155,6 +160,20 @@ func _get_background_material() -> ShaderMaterial:
 	if not background_sprite:
 		return null
 	return background_sprite.material as ShaderMaterial
+
+
+func _resolve_client_ui() -> void:
+	client_ui = get_tree().get_first_node_in_group("client_ui")
+
+
+func play_combo_sfx() -> void:
+	if not client_ui:
+		_resolve_client_ui()
+
+	if client_ui and client_ui.has_method("play_cached_combo_sfx"):
+		client_ui.call("play_cached_combo_sfx")
+	else:
+		push_warning("ninja.play_combo_sfx(): client UI missing or lacks play_cached_combo_sfx().")
 
 
 # in practice most likely set once before animation starts

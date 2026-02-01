@@ -1,7 +1,13 @@
 extends Control
 
 @export var audio_stream: AudioStreamPlayer2D
+@export var combo_audio_stream: AudioStreamPlayer2D
 @export var player_select_audio_clip: AudioStream
+@export var rock_beats_scissors_clip: AudioStream
+@export var scissors_beats_paper_clip: AudioStream
+@export var paper_beats_rock_clip: AudioStream
+
+var _cached_combo_clip: AudioStream = null
 
 @onready var client: Node = $Client
 
@@ -111,6 +117,37 @@ func startCutscene(leftData, rightData, winnerDesc) -> void:
 	cutsceneInstance.play()
 
 
+func _play_combo_sfx(left_choice: String, right_choice: String, winner_desc: String) -> void:
+	if winner_desc == "tie":
+		_cached_combo_clip = null
+		return
+
+	var winner_choice := left_choice if winner_desc == "left" else right_choice
+	var loser_choice := right_choice if winner_desc == "left" else left_choice
+
+	var clip: AudioStream = null
+	if winner_choice == "rock" and loser_choice == "scissors":
+		clip = rock_beats_scissors_clip
+	elif winner_choice == "scissors" and loser_choice == "paper":
+		clip = scissors_beats_paper_clip
+	elif winner_choice == "paper" and loser_choice == "rock":
+		clip = paper_beats_rock_clip
+
+	_cached_combo_clip = clip
+
+
+func play_cached_combo_sfx() -> void:
+	if _cached_combo_clip == null:
+		return
+
+	var player := combo_audio_stream if combo_audio_stream else audio_stream
+	if not player:
+		return
+
+	player.stream = _cached_combo_clip
+	player.play()
+
+
 func _get_server_url() -> String:
 	# we're not doing this anymore!
 	# return host.text
@@ -200,6 +237,9 @@ func netRecvInfo(key, value) -> void:
 				# start the cut scene
 				var attackerColor = playerData.get("color", Color.WHITE)
 				var defenderColor = defenderData.get("color", Color.WHITE)
+				var leftChoice = playerData.get("play", "invalid")
+				var rightChoice = defenderData.get("play", "invalid")
+				_play_combo_sfx(leftChoice, rightChoice, winnerDesc)
 				startCutscene(playerData, defenderData, winnerDesc)
 
 				if winnerID == -1:
@@ -243,6 +283,7 @@ func generate_random_hsv_color() -> Color:
 
 
 func _ready() -> void:
+	add_to_group("client_ui")
 	client.lobby_joined.connect(_lobby_joined)
 	client.lobby_sealed.connect(_lobby_sealed)
 	client.connected.connect(_connected)
