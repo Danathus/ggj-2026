@@ -29,6 +29,12 @@ var _pulse_duration := 1.0
 
 var show_hand_drawn_sprites = true # default setting can be overridden by UI
 
+var left_player_choice = "rock"
+var right_player_choice = "rock"
+
+@onready var left_ninja_mask: Sprite2D = $"Left Player/Sprite2D/NinjaMask"
+@onready var right_ninja_mask: Sprite2D = $"Right Player/Sprite2D/NinjaMask2"
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# delete this "set" after this is properly hooked up
@@ -65,6 +71,8 @@ func _process(delta: float) -> void:
 
 
 func play() -> void:
+	_applySpriteSettings()
+
 	if not anim_left_player or not anim_right_player:
 		push_error("ninja.play(): missing left/right AnimationPlayer reference.")
 		return
@@ -102,6 +110,8 @@ const rock_texture : Texture2D = preload("res://demo/rock_cat_10th.png")
 const paper_texture : Texture2D = preload("res://demo/paper_ninja_10th.png")
 const scissors_texture : Texture2D = preload("res://demo/elephant_10th.png")
 
+const solid_color_square_texture: Texture2D = preload("res://materials/white.png")
+
 
 func _choice_to_texture(choice: String) -> Texture2D:
 	match choice:
@@ -114,10 +124,9 @@ func _choice_to_texture(choice: String) -> Texture2D:
 		_:
 			return paper_texture
 
-func set_player_choices(left_player_choice: String, right_player_choice: String) -> void:
-	if show_hand_drawn_sprites:
-		sprite_left_player.texture = _choice_to_texture(left_player_choice)
-		sprite_right_player.texture = _choice_to_texture(right_player_choice)
+func set_player_choices(in_left_player_choice: String, in_right_player_choice: String) -> void:
+	left_player_choice = in_left_player_choice
+	right_player_choice = in_right_player_choice
 
 
 # either "left" or "right" or "tie" -- set before play()
@@ -152,4 +161,25 @@ func _get_background_material() -> ShaderMaterial:
 # but, if we can support live swapping, that's ideal
 func toggleShowHandDrawn(use_hand_drawn) -> void:
 	show_hand_drawn_sprites = use_hand_drawn
-	# todo -- apply (live potentially)
+	# apply (live potentially)
+	_applySpriteSettings()
+
+
+func _applySpriteSettings() -> void:
+	var desired_scale = [1, 1]
+	if show_hand_drawn_sprites:
+		sprite_left_player.texture = _choice_to_texture(left_player_choice)
+		sprite_right_player.texture = _choice_to_texture(right_player_choice)
+		desired_scale = [0.02, 0.02]
+		left_ninja_mask.visible = false
+		right_ninja_mask.visible = false
+	else:
+		sprite_left_player.texture = solid_color_square_texture
+		sprite_right_player.texture = solid_color_square_texture
+		desired_scale = [1, 1]
+		left_ninja_mask.visible = true
+		right_ninja_mask.visible = true
+	sprite_left_player.scale.x = desired_scale[0]
+	sprite_left_player.scale.y = desired_scale[1]
+	sprite_right_player.scale.x = desired_scale[0]
+	sprite_right_player.scale.y = desired_scale[1]

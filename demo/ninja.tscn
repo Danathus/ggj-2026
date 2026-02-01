@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://tsojpj03f7lk"]
 
 [ext_resource type="Script" uid="uid://bev5sgbjhyxcy" path="res://demo/ninja.gd" id="1_8etv0"]
-[ext_resource type="Texture2D" uid="uid://b20us418xrhgj" path="res://demo/rock_cat_10th.png" id="2_1vgde"]
+[ext_resource type="Texture2D" uid="uid://cuc6jph56vf2c" path="res://materials/white.png" id="2_1vgde"]
 [ext_resource type="Animation" uid="uid://d4jrscjumugfw" path="res://animations/test.res" id="2_yvtqg"]
 [ext_resource type="AnimationLibrary" uid="uid://dpvu0sfs54fx8" path="res://animations/test_animation_library.tres" id="3_3aiyw"]
 [ext_resource type="Texture2D" uid="uid://bsl4y3fn7ksg2" path="res://materials/ninja_mask.png" id="3_lr8qu"]
@@ -191,13 +191,11 @@ position = Vector2(110, -80)
 scale = Vector2(40, 40)
 
 [node name="Sprite2D" type="Sprite2D" parent="Left Player" unique_id=47541042]
-scale = Vector2(0.02, 0.02)
 texture = ExtResource("2_1vgde")
 
 [node name="NinjaMask" type="Sprite2D" parent="Left Player/Sprite2D" unique_id=1761736321]
-visible = false
-position = Vector2(-0.22000003, -0.11999999)
-scale = Vector2(0.2, 0.2)
+position = Vector2(-0.125, -0.06)
+scale = Vector2(0.003, 0.003)
 texture = ExtResource("3_lr8qu")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Left Player/Sprite2D" unique_id=1404219016]
@@ -222,7 +220,6 @@ animation = "test_animation_library/test"
 libraries/ = SubResource("AnimationLibrary_npd7j")
 libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
-particle_system_path = null
 animation = "test_animation_library/fall_right"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Left Player" unique_id=1797626336]
@@ -243,9 +240,8 @@ scale = Vector2(0.02, 0.02)
 texture = ExtResource("2_1vgde")
 
 [node name="NinjaMask2" type="Sprite2D" parent="Right Player/Sprite2D" unique_id=56300246]
-visible = false
-position = Vector2(0.24, -0.12)
-scale = Vector2(0.2, 0.2)
+position = Vector2(0.115, 0.02)
+scale = Vector2(-0.003, 0.003)
 texture = ExtResource("3_lr8qu")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Right Player/Sprite2D" unique_id=1291373569]
@@ -270,7 +266,6 @@ animation = "test_animation_library/reverse-test"
 libraries/ = SubResource("AnimationLibrary_0m6me")
 libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
-particle_system_path = null
 animation = "test_animation_library/fall_left"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Right Player" unique_id=529746145]
