@@ -6,11 +6,18 @@ extends Node
 @export var sprite_left_player_path: NodePath = NodePath()
 @export var sprite_right_player_path: NodePath = NodePath()
 
+@export var background_path: NodePath = NodePath("Background")
+
 @onready var anim_left_player := get_node(anim_left_player_path) as AnimationPlayer
 @onready var anim_right_player := get_node(anim_right_player_path) as AnimationPlayer
 
 @onready var sprite_left_player := get_node(sprite_left_player_path) as CanvasItem
 @onready var sprite_right_player := get_node(sprite_right_player_path) as CanvasItem
+
+@onready var background_sprite := get_node(background_path) as CanvasItem
+
+var _pulse_elapsed := -1.0
+var _pulse_duration := 1.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,8 +28,21 @@ func _ready() -> void:
 	print("anim complete")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-# func _process(delta: float) -> void:
-# 	pass
+func _process(delta: float) -> void:
+	if _pulse_elapsed < 0.0:
+		return
+
+	var material := _get_background_material()
+	if material == null:
+		_pulse_elapsed = -1.0
+		return
+
+	_pulse_elapsed += delta
+	material.set_shader_parameter("pulse_time", _pulse_elapsed)
+
+	if _pulse_elapsed >= _pulse_duration:
+		material.set_shader_parameter("pulse_time", -1.0)
+		_pulse_elapsed = -1.0
 
 
 func play() -> void:
@@ -57,3 +77,26 @@ func set_player_colors(left_player_color: Color, right_player_color: Color) -> v
 
 	sprite_left_player.modulate = left_player_color
 	sprite_right_player.modulate = right_player_color
+
+
+func trigger_pulse(duration: float = -1.0) -> void:
+	var material := _get_background_material()
+	if material == null:
+		push_error("ninja.trigger_pulse(): missing background material.")
+		return
+
+	if duration > 0.0:
+		_pulse_duration = duration
+		material.set_shader_parameter("pulse_duration", _pulse_duration)
+	else:
+		var current_duration = material.get_shader_parameter("pulse_duration")
+		_pulse_duration = current_duration if current_duration != null else _pulse_duration
+
+	_pulse_elapsed = 0.0
+	material.set_shader_parameter("pulse_time", _pulse_elapsed)
+
+
+func _get_background_material() -> ShaderMaterial:
+	if not background_sprite:
+		return null
+	return background_sprite.material as ShaderMaterial

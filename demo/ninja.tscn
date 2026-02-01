@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://b0ltlyuav2wdn" path="res://audio/jump-landing3.mp3" id="10_lr8qu"]
 [ext_resource type="AudioStream" uid="uid://bqtfiemwlh6kf" path="res://audio/jumping.mp3" id="11_j8g7q"]
 [ext_resource type="AudioStream" uid="uid://b32t7234onbmr" path="res://audio/whoosh.mp3" id="12_lr8qu"]
+[ext_resource type="Shader" uid="uid://ckwecybuwfnic" path="res://shaders/background.gdshader" id="14_1vgde"]
 [ext_resource type="Texture2D" uid="uid://bkelashuqsu6v" path="res://materials/background.png" id="14_huc6e"]
 
 [sub_resource type="Animation" id="Animation_8etv0"]
@@ -45,6 +46,15 @@ _data = {
 &"RESET": SubResource("Animation_8etv0"),
 &"test": ExtResource("2_yvtqg")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0m6me"]
+shader = ExtResource("14_1vgde")
+shader_parameter/pulse_time = -1.0
+shader_parameter/pulse_duration = 1.0
+shader_parameter/pulse_amplitude = 0.02
+shader_parameter/pulse_width = 0.03
+shader_parameter/pulse_repeat = 1.2
+shader_parameter/pulse_center = Vector2(0.5, 0.5)
 
 [node name="Ninja" type="Node2D" unique_id=215485298]
 script = ExtResource("1_8etv0")
@@ -111,6 +121,7 @@ whooshClip = ExtResource("12_lr8qu")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1216188403]
 z_index = -1
+material = SubResource("ShaderMaterial_0m6me")
 position = Vector2(575, -328)
 scale = Vector2(0.363, 0.483)
 texture = ExtResource("14_huc6e")
