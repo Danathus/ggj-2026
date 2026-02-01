@@ -122,7 +122,8 @@ func netRecvInfo(key, value) -> void:
 
 	if playerData == null:
 		playerData = {
-		"wins": 0
+		"wins": 0,
+		"losses": 0
 		}
 	game_data[senderID] = playerData
 
@@ -173,8 +174,10 @@ func netRecvInfo(key, value) -> void:
 				var loserID = value if senderID == winnerID else senderID
 				var loserData = game_data.get(loserID, {})
 				var loserName = loserData.get("name", "undefined")
-				
+
 				winnerData["wins"] = winnerData.get("wins", 0) + 1
+				loserData["losses"] = loserData.get("losses", 0) + 1
+
 				#if winnerData["wins"] == null:
 					#winnerData["wins"] = 1
 				#else:

@@ -32,8 +32,8 @@ func set_color(color) -> void:
 	playerColor.color = color
 
 
-func set_score(score: int) -> void:
-	playerScore.text = str(score)
+func set_score(score: String) -> void:
+	playerScore.text = score
 
 
 func _on_button_pressed() -> void:
