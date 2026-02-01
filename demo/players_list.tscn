@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cfkglseapmfuc"]
+
+[ext_resource type="Script" uid="uid://w8jy8m3xquj4" path="res://demo/players_list.gd" id="1_h3ynq"]
+
+[node name="Root" type="VBoxContainer" unique_id=1231415985]
+script = ExtResource("1_h3ynq")
+
+[node name="PlayersLabel" type="Label" parent="." unique_id=813367741]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+size_flags_vertical = 5
+text = "Players:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayersList" type="ItemList" parent="." unique_id=1503806413]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="item_selected" from="PlayersList" to="." method="_on_players_list_item_selected"]

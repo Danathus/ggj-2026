@@ -9,7 +9,7 @@ extends Control
 
 @onready var playerName: LineEdit = $HBoxContainer/VBoxContainer/HBoxContainer2/YourNameHBox/YourName
 
-@onready var playersList: ItemList = $HBoxContainer/VBoxContainer2/PlayersList
+@onready var playersList = $HBoxContainer/PlayersList
 
 @onready var game: Node = $RockPaperScissorsGame
 
@@ -115,7 +115,7 @@ func netRecvInfo(key, value) -> void:
 	playerData[key] = value
 	match key:
 		"name":
-			updatePlayersList()
+			playersList.update(game_data)
 		"play":
 			match value:
 				"rock":
@@ -161,34 +161,6 @@ func netRecvInfo(key, value) -> void:
 				_log("Game", "%s beats %s!" % [winnerName, loserName])
 
 
-func updatePlayersList() -> void:
-	# get list of players
-	var names = []
-	for playerData in game_data.values():
-		var name = playerData.get("name", null)
-		if name:
-			names.append(name)
-
-	# alphabetize list
-	names.sort()
-
-	# update the UI control with list of players
-	playersList.clear()
-	for name in names:
-		playersList.add_item(name)
-
-
-func find_player_network_id_from_name(name) -> int:
-	# just do a linear search for now
-	for player_id in game_data:
-		var playerData = game_data[player_id]
-		if playerData.get("name", "") == name:
-			return player_id
-
-	# indicate failure
-	return -1
-
-
 func generate_random_hsv_color() -> Color:
 	# Hue (0.0 to 1.0), Saturation (0.0 to 1.0), Value/Brightness (0.0 to 1.0)
 	# Using randf() for hue, and a specific range for a vibrant color
@@ -207,6 +179,8 @@ func _ready() -> void:
 	multiplayer.server_disconnected.connect(_mp_server_disconnect)
 	multiplayer.peer_connected.connect(_mp_peer_connected)
 	multiplayer.peer_disconnected.connect(_mp_peer_disconnected)
+
+	playersList.player_selected.connect(_on_player_selected)
 
 	# randomly fill in a player name
 	playerName.text = generate_word(characters, 6)
@@ -414,13 +388,7 @@ func _on_paste_button_pressed() -> void:
 	#_on_join_room_logic(result) # Optional: Auto-join immediately
 
 
-func _on_players_list_item_selected(index: int) -> void:
-	# what's the name at this index?
-	var name = playersList.get_item_text(index)
-	
-	# what's the network ID for this name?
-	var network_id = find_player_network_id_from_name(name)
-
+func _on_player_selected(network_id: int) -> void:
 	# indicate that you want to fight this guy
 	# if a match is made, you'll fight
 	netBroadcastInfo("target", network_id)
