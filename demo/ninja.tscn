@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://tsojpj03f7lk"]
 
 [ext_resource type="Script" uid="uid://bev5sgbjhyxcy" path="res://demo/ninja.gd" id="1_8etv0"]
-[ext_resource type="Texture2D" uid="uid://cuc6jph56vf2c" path="res://materials/white.png" id="2_lr8qu"]
+[ext_resource type="Texture2D" uid="uid://dj1cyivp5pg23" path="res://demo/elephant_10th.png" id="2_1vgde"]
 [ext_resource type="Animation" uid="uid://d4jrscjumugfw" path="res://animations/test.res" id="2_yvtqg"]
 [ext_resource type="AnimationLibrary" uid="uid://dpvu0sfs54fx8" path="res://animations/test_animation_library.tres" id="3_3aiyw"]
 [ext_resource type="Texture2D" uid="uid://bsl4y3fn7ksg2" path="res://materials/ninja_mask.png" id="3_lr8qu"]
@@ -73,14 +73,16 @@ current = true
 
 [node name="Left Player" type="Node2D" parent="." unique_id=789311375]
 position = Vector2(50, -50)
-scale = Vector2(50, 100)
+scale = Vector2(50, 50)
 
 [node name="Sprite2D" type="Sprite2D" parent="Left Player" unique_id=47541042]
-texture = ExtResource("2_lr8qu")
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("2_1vgde")
 
 [node name="NinjaMask" type="Sprite2D" parent="Left Player/Sprite2D" unique_id=1761736321]
+visible = false
 position = Vector2(-0.22000003, -0.11999999)
-scale = Vector2(0.004, 0.002)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_lr8qu")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Left Player/Sprite2D" unique_id=1404219016]
@@ -116,15 +118,17 @@ whooshClip = ExtResource("12_lr8qu")
 
 [node name="Right Player" type="Node2D" parent="." unique_id=1584593828]
 position = Vector2(1100, -50)
-scale = Vector2(50, 100)
+scale = Vector2(50, 50)
 
 [node name="Sprite2D" type="Sprite2D" parent="Right Player" unique_id=1702573524]
 position = Vector2(-21, 0)
-texture = ExtResource("2_lr8qu")
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("2_1vgde")
 
 [node name="NinjaMask2" type="Sprite2D" parent="Right Player/Sprite2D" unique_id=56300246]
+visible = false
 position = Vector2(0.24, -0.12)
-scale = Vector2(-0.004, 0.002)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_lr8qu")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Right Player/Sprite2D" unique_id=1291373569]
