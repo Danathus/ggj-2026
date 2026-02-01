@@ -183,6 +183,8 @@ func netRecvInfo(key, value) -> void:
 				_log("Game", "%s beats %s!" % [winnerName, loserName])
 				_log("Game", "Winner, %s now has now won %d time(s)" % [winnerName, winnerData["wins"]])
 				_log("Game", "Loser, %s has only won %d time(s)" % [loserName, loserData["wins"]])
+				# update win records in the player list
+				playersList.update(game_data)
 
 
 func generate_random_hsv_color() -> Color:

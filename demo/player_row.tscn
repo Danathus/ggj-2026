@@ -19,6 +19,9 @@ layout_mode = 2
 layout_mode = 2
 text = "Experiment"
 
+[node name="ScoreLabel" type="Label" parent="HBoxContainer" unique_id=1887499167]
+layout_mode = 2
+
 [node name="Button" type="Button" parent="." unique_id=1887650972]
 layout_mode = 2
 size_flags_horizontal = 3
