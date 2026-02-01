@@ -16,6 +16,8 @@ extends Control
 
 @onready var game: Node = $RockPaperScissorsGame
 
+@onready var startButton = $HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer
+
 # prepare the ninja animation
 const cutscenePrefab = preload("res://demo/ninja.tscn")
 #@onready var cutsceneRoot = logRoot
@@ -254,6 +256,7 @@ func _disconnected() -> void:
 
 func _lobby_joined(lobby: String) -> void:
 	isConnectedToLobby = true
+	startButton.hide()
 	_log("Signaling", "Joined lobby %s" % lobby)
 	# put this in the room text field automatically
 	room.text = lobby
