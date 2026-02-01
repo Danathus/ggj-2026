@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://tsojpj03f7lk"]
 
 [ext_resource type="Script" uid="uid://bev5sgbjhyxcy" path="res://demo/ninja.gd" id="1_8etv0"]
-[ext_resource type="Texture2D" uid="uid://b3fcy5qy3vkb" path="res://demo/paper_ninja_10th.png" id="2_1vgde"]
+[ext_resource type="Texture2D" uid="uid://b20us418xrhgj" path="res://demo/rock_cat_10th.png" id="2_1vgde"]
 [ext_resource type="Animation" uid="uid://d4jrscjumugfw" path="res://animations/test.res" id="2_yvtqg"]
 [ext_resource type="AnimationLibrary" uid="uid://dpvu0sfs54fx8" path="res://animations/test_animation_library.tres" id="3_3aiyw"]
 [ext_resource type="Texture2D" uid="uid://bsl4y3fn7ksg2" path="res://materials/ninja_mask.png" id="3_lr8qu"]
