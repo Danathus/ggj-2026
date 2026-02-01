@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c27mlvrb4x1fc" path="res://demo/icons8-copy-24.png" id="4_dmi1k"]
 [ext_resource type="Texture2D" uid="uid://vmr40lny72qf" path="res://demo/icons8-paste-24.png" id="5_sgolo"]
 [ext_resource type="AudioStream" uid="uid://cbcrsoyigorgk" path="res://audio/shaped-taiko-180916-fade.mp3" id="6_2vbtq"]
+[ext_resource type="AudioStream" uid="uid://bio61e2qonx55" path="res://audio/japanese-garden.mp3" id="7_axmsd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmi1k"]
 bg_color = Color(0.4182794, 0.4182795, 0.41827932, 1)
@@ -185,6 +186,10 @@ size_flags_vertical = 3
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1313892526]
 stream = ExtResource("6_2vbtq")
+
+[node name="Background Music" type="AudioStreamPlayer2D" parent="." unique_id=1200122410]
+stream = ExtResource("7_axmsd")
+autoplay = true
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/Connect/CopyButton" to="." method="_on_copy_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer2/Connect/PasteButton" to="." method="_on_paste_button_pressed"]
