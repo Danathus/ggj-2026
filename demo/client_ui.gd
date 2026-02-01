@@ -1,5 +1,8 @@
 extends Control
 
+@export var audio_stream: AudioStreamPlayer2D
+@export var player_select_audio_clip: AudioStream
+
 @onready var client: Node = $Client
 
 @onready var room: LineEdit = $HBoxContainer/VBoxContainer/HBoxContainer2/Connect/RoomSecret
@@ -420,6 +423,9 @@ func _on_players_list_item_selected(index: int) -> void:
 	
 	# what's the network ID for this name?
 	var network_id = find_player_network_id_from_name(name)
+
+	audio_stream.stream = player_select_audio_clip
+	audio_stream.play()
 
 	# indicate that you want to fight this guy
 	# if a match is made, you'll fight
