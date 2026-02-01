@@ -3,8 +3,90 @@
 [ext_resource type="Animation" uid="uid://te7gq43r4ik0" path="res://animations/reverse-test.res" id="1_xj5kt"]
 [ext_resource type="Animation" uid="uid://d4jrscjumugfw" path="res://animations/test.res" id="2_q7p3d"]
 
+[sub_resource type="Animation" id="Animation_q7p3d"]
+resource_name = "fall_left"
+length = 3.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 2, 2, 2),
+"points": PackedFloat32Array(0, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1.6, 0, 0, 0, 0, -1.6, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 1, 2, 3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 2, 2, 2),
+"points": PackedFloat32Array(-21, 0, 0, 0, 0, -21.5, 0, 0, 0, 0, -21.75, 0, 0, 0, 0, -21.75, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 1, 2, 3)
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_random_landing_clip"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_xj5kt"]
+resource_name = "fall_right"
+length = 3.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 2, 2, 2),
+"points": PackedFloat32Array(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.6, 0, 0, 0, 0, 1.6, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 1, 2, 3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 2, 2, 2),
+"points": PackedFloat32Array(21, 0, 0, 0, 0, 21.5, 0, 0, 0, 0, 21.75, 0, 0, 0, 0, 21.75, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 1, 2, 3)
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_random_landing_clip"
+}]
+}
+
 [resource]
 _data = {
+&"fall_left": SubResource("Animation_q7p3d"),
+&"fall_right": SubResource("Animation_xj5kt"),
 &"reverse-test": ExtResource("1_xj5kt"),
 &"test": ExtResource("2_q7p3d")
 }

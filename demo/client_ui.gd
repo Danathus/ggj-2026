@@ -23,7 +23,6 @@ extends Control
 
 # prepare the ninja animation
 const cutscenePrefab = preload("res://demo/ninja.tscn")
-#@onready var cutsceneRoot = logRoot
 @onready var cutsceneRoot = $HBoxContainer/VBoxContainer
 var cutsceneInstance
 
@@ -58,7 +57,7 @@ func _log(type, msg: String) -> void:
 		logRoot.text += str(msg) + "\n"
 
 
-func startCutscene(leftColor, rightColor) -> void:
+func startCutscene(leftData, rightData, winnerDesc) -> void:
 	# lazily instantiate
 	if cutsceneInstance != null and is_instance_valid(cutsceneInstance):
 		cutsceneInstance.queue_free()
@@ -69,8 +68,15 @@ func startCutscene(leftColor, rightColor) -> void:
 	cutsceneRoot.add_child(cutsceneInstance)
 	# hack to put into good position to view
 	cutsceneInstance.position.y = 650
+
 	# assign the colors
+	var leftColor = leftData.get("color", Color.WHITE)
+	var rightColor = rightData.get("color", Color.WHITE)
 	cutsceneInstance.set_player_colors(leftColor, rightColor)
+
+	# decide who wins
+	cutsceneInstance.set_winner(winnerDesc)
+
 	# and here...we...go!
 	cutsceneInstance.play()
 
@@ -154,13 +160,18 @@ func netRecvInfo(key, value) -> void:
 			# if there's a match made, engage the game
 			if senderID != value and game_data.get(value, {}).get("target", -1) == senderID:
 				_log("Game", "Fight begins: %s vs %s!" % [attackerName, defenderName])
-				var attackerColor = playerData.get("color", Color.WHITE)
-				var defenderColor = defenderData.get("color", Color.WHITE)
-				startCutscene(attackerColor, defenderColor)
 
 				# try to resolve the round
 				var winnerID = game.resolve_round(senderID, value)
-				
+
+				# translate winner to left/right/tie
+				var winnerDesc = "tie" if winnerID in [0, -1] else "left" if senderID == winnerID else "right"
+
+				# start the cut scene
+				var attackerColor = playerData.get("color", Color.WHITE)
+				var defenderColor = defenderData.get("color", Color.WHITE)
+				startCutscene(playerData, defenderData, winnerDesc)
+
 				if winnerID == -1:
 					_log("Game", "Something went wrong! Inconclusive!")
 					return

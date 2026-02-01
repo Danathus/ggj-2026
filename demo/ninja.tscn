@@ -60,6 +60,8 @@ shader_parameter/pulse_center = Vector2(0.5, 0.5)
 script = ExtResource("1_8etv0")
 anim_left_player_path = NodePath("Left Player/AnimationPlayer")
 anim_right_player_path = NodePath("Right Player/AnimationPlayer")
+anim_left_player_fall_path = NodePath("Left Player/AnimationPlayerFall")
+anim_right_player_fall_path = NodePath("Right Player/AnimationPlayerFall")
 sprite_left_player_path = NodePath("Left Player/Sprite2D")
 sprite_right_player_path = NodePath("Right Player/Sprite2D")
 
@@ -98,6 +100,12 @@ libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
 animation = "test_animation_library/test"
 
+[node name="AnimationPlayerFall" type="AnimationPlayer" parent="Left Player" unique_id=1419637251]
+libraries/ = SubResource("AnimationLibrary_npd7j")
+libraries/test_animation_library = ExtResource("3_3aiyw")
+script = ExtResource("4_3aiyw")
+animation = "test_animation_library/fall_right"
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Left Player" unique_id=1797626336]
 stream = ExtResource("6_npd7j")
 script = ExtResource("7_k0t1t")
@@ -111,6 +119,7 @@ position = Vector2(1100, -50)
 scale = Vector2(50, 100)
 
 [node name="Sprite2D" type="Sprite2D" parent="Right Player" unique_id=1702573524]
+position = Vector2(-21, 0)
 texture = ExtResource("2_lr8qu")
 
 [node name="NinjaMask2" type="Sprite2D" parent="Right Player/Sprite2D" unique_id=56300246]
@@ -133,6 +142,11 @@ scale_amount_max = 14.15
 libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
 animation = "test_animation_library/reverse-test"
+
+[node name="AnimationPlayerFall" type="AnimationPlayer" parent="Right Player" unique_id=936766932]
+libraries/test_animation_library = ExtResource("3_3aiyw")
+script = ExtResource("4_3aiyw")
+animation = "test_animation_library/fall_left"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Right Player" unique_id=529746145]
 script = ExtResource("7_k0t1t")

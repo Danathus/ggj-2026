@@ -3,6 +3,9 @@ extends Node
 @export var anim_left_player_path: NodePath = NodePath()
 @export var anim_right_player_path: NodePath = NodePath()
 
+@export var anim_left_player_fall_path: NodePath = NodePath()
+@export var anim_right_player_fall_path: NodePath = NodePath()
+
 @export var sprite_left_player_path: NodePath = NodePath()
 @export var sprite_right_player_path: NodePath = NodePath()
 
@@ -11,10 +14,15 @@ extends Node
 @onready var anim_left_player := get_node(anim_left_player_path) as AnimationPlayer
 @onready var anim_right_player := get_node(anim_right_player_path) as AnimationPlayer
 
+@onready var anim_left_player_fall := get_node(anim_left_player_fall_path) as AnimationPlayer
+@onready var anim_right_player_fall := get_node(anim_right_player_fall_path) as AnimationPlayer
+
 @onready var sprite_left_player := get_node(sprite_left_player_path) as CanvasItem
 @onready var sprite_right_player := get_node(sprite_right_player_path) as CanvasItem
 
 @onready var background_sprite := get_node(background_path) as CanvasItem
+
+var winning_side = "tie" # will be overridden
 
 var _pulse_elapsed := -1.0
 var _pulse_duration := 1.0
@@ -25,6 +33,15 @@ func _ready() -> void:
 	#set_player_colors(Color.RED, Color.BLUE)
 
 	await play()
+
+	# make loser fall
+	match winning_side:
+		"left":
+			anim_right_player_fall.play_animation()
+		"right":
+			anim_left_player_fall.play_animation()
+
+	# all done
 	print("anim complete")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -77,6 +94,11 @@ func set_player_colors(left_player_color: Color, right_player_color: Color) -> v
 
 	sprite_left_player.modulate = left_player_color
 	sprite_right_player.modulate = right_player_color
+
+
+# either "left" or "right" or "tie" -- set before play()
+func set_winner(winner_description) -> void:
+	winning_side = winner_description
 
 
 func trigger_pulse(duration: float = -1.0) -> void:
