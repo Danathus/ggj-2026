@@ -52,6 +52,10 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 editable = false
 
+[node name="YourColor" type="ColorRect" parent="HBoxContainer/VBoxContainer/HBoxContainer2/YourNameHBox" unique_id=1666045181]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
 [node name="Spacer1" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=738631143]
 layout_mode = 2
 size_flags_horizontal = 3

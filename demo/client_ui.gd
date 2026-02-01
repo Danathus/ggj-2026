@@ -29,6 +29,8 @@ var characters = 'abcdefghijklmnopqrstuvwxyz'
 
 var isConnectedToLobby = false;
 
+@onready var playerColor: ColorRect = $HBoxContainer/VBoxContainer/HBoxContainer2/YourNameHBox/YourColor
+
 
 # set a string to true to output logs for it (debugging aid to make it easier to silence)
 # we can hard-code for now which we want to show
@@ -91,11 +93,6 @@ func netBroadcastAllMyInfo() -> void:
 	# send everything
 	for key in playerData:
 		netBroadcastInfo(key, playerData[key])
-
-	# for now explicitly send all relevant data here
-	#netBroadcastInfo("name", playerData.get("name", ""))
-	#netBroadcastInfo("play", playerData.get("play", ""))
-	#netBroadcastInfo("target", playerData.get("target", -1))
 
 
 #func netSendInfo(senderId, receiverId, key, value):
@@ -187,6 +184,13 @@ func find_player_network_id_from_name(name) -> int:
 	return -1
 
 
+func generate_random_hsv_color() -> Color:
+	# Hue (0.0 to 1.0), Saturation (0.0 to 1.0), Value/Brightness (0.0 to 1.0)
+	# Using randf() for hue, and a specific range for a vibrant color
+	return Color.from_hsv(randf(), 1.0, 1.0)
+
+
+
 func _ready() -> void:
 	client.lobby_joined.connect(_lobby_joined)
 	client.lobby_sealed.connect(_lobby_sealed)
@@ -202,11 +206,15 @@ func _ready() -> void:
 	# randomly fill in a player name
 	playerName.text = generate_word(characters, 6)
 
+	# randomly assign a color too
+	playerColor.color = generate_random_hsv_color()
+
 	# default to a random selection between rock, paper, and scissors
 	var choices = [btnRock, btnPaper, btnScissors]
 	var selection = choices.pick_random()
 	selection.emit_signal("pressed")
-	
+
+	# print help text
 	_log("Help", "Welcome to the game, %s!" % [playerName.text])
 	_log("Help", "You can click Start to create a new game room.")
 	_log("Help", "Or, you can paste in a secret room key and click Start to join an existing game room.")
@@ -259,6 +267,7 @@ func _lobby_joined(lobby: String) -> void:
 
 	# at this point we should commit our fields to the network
 	netBroadcastInfo("name", playerName.text)
+	netBroadcastInfo("color", playerColor.color)
 	var play = "rock"
 	if btnPaper.disabled:
 		play = "paper"
