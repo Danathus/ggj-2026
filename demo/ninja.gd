@@ -15,7 +15,7 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# delete this "set" after this is properly hooked up
-	set_player_colors(Color.RED, Color.BLUE)
+	#set_player_colors(Color.RED, Color.BLUE)
 
 	await play()
 	print("anim complete")
