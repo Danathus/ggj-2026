@@ -50,13 +50,16 @@ func _log(type, msg: String) -> void:
 
 func startCutscene() -> void:
 	# lazily instantiate
-	if cutsceneInstance == null:
-		cutsceneInstance = cutscenePrefab.instantiate()
-		# add to scene tree
-		cutsceneRoot.add_child(cutsceneInstance)
-		# hack to put into good position to view
-		cutsceneInstance.position.y = 650
-		cutsceneInstance.play()
+	if cutsceneInstance != null and is_instance_valid(cutsceneInstance):
+		cutsceneInstance.queue_free()
+		cutsceneInstance = null
+
+	cutsceneInstance = cutscenePrefab.instantiate()
+	# add to scene tree
+	cutsceneRoot.add_child(cutsceneInstance)
+	# hack to put into good position to view
+	cutsceneInstance.position.y = 650
+	cutsceneInstance.play()
 
 
 func _get_server_url() -> String:

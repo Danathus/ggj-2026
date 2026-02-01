@@ -33,3 +33,8 @@ func play() -> void:
 
 	while remaining[0] > 0:
 		await get_tree().process_frame
+
+
+func reset_players() -> void:
+	anim_left_player.stop();
+	anim_right_player.stop();
