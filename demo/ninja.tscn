@@ -215,12 +215,14 @@ scale_amount_max = 14.15
 libraries/ = SubResource("AnimationLibrary_npd7j")
 libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
+particle_system_path = NodePath("../Sprite2D/CPUParticles2D")
 animation = "test_animation_library/test"
 
 [node name="AnimationPlayerFall" type="AnimationPlayer" parent="Left Player" unique_id=1419637251]
 libraries/ = SubResource("AnimationLibrary_npd7j")
 libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
+particle_system_path = null
 animation = "test_animation_library/fall_right"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Left Player" unique_id=1797626336]
@@ -261,12 +263,14 @@ scale_amount_max = 14.15
 libraries/ = SubResource("AnimationLibrary_at326")
 libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
+particle_system_path = NodePath("../Sprite2D/CPUParticles2D")
 animation = "test_animation_library/reverse-test"
 
 [node name="AnimationPlayerFall" type="AnimationPlayer" parent="Right Player" unique_id=936766932]
 libraries/ = SubResource("AnimationLibrary_0m6me")
 libraries/test_animation_library = ExtResource("3_3aiyw")
 script = ExtResource("4_3aiyw")
+particle_system_path = null
 animation = "test_animation_library/fall_left"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Right Player" unique_id=529746145]
