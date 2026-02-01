@@ -50,11 +50,31 @@ var logsEnabled = {
 }
 
 
+# I counted to see what fits
+@export var max_log_lines = 22
+
 func _log(type, msg: String) -> void:
 	if logsEnabled.get(type, false):
 		msg = "[%s] %s" % [type, msg]
 		print(msg)
 		logRoot.text += str(msg) + "\n"
+
+		# check line count
+		var current_line_count = logRoot.get_line_count()
+
+		# if too many, remove the first line(s)
+		if current_line_count > max_log_lines:
+			# TextEdit doesn't have a simple "remove_line(0)" method, 
+			# so we have to do string manipulation or use internal methods.
+
+			# method: Split, remove first, join back (simplest logic)
+			var lines = logRoot.text.split("\n")
+			# keep only the last 'max_log_lines'
+			var new_lines = lines.slice(-max_log_lines) 
+			logRoot.text = "\n".join(new_lines)
+
+		# scroll to bottom (just in case)
+		logRoot.scroll_vertical = logRoot.get_line_count()
 
 
 func startCutscene(leftData, rightData, winnerDesc) -> void:
