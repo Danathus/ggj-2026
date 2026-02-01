@@ -167,18 +167,18 @@ func toggleShowHandDrawn(use_hand_drawn) -> void:
 
 func _applySpriteSettings() -> void:
 	var desired_scale = [1, 1]
+	var masks_visible = false
 	if show_hand_drawn_sprites:
 		sprite_left_player.texture = _choice_to_texture(left_player_choice)
 		sprite_right_player.texture = _choice_to_texture(right_player_choice)
 		desired_scale = [0.02, 0.02]
-		left_ninja_mask.visible = false
-		right_ninja_mask.visible = false
 	else:
 		sprite_left_player.texture = solid_color_square_texture
 		sprite_right_player.texture = solid_color_square_texture
 		desired_scale = [1, 1]
-		left_ninja_mask.visible = true
-		right_ninja_mask.visible = true
+		masks_visible = true
+	left_ninja_mask.visible = masks_visible
+	right_ninja_mask.visible = masks_visible
 	sprite_left_player.scale.x = desired_scale[0]
 	sprite_left_player.scale.y = desired_scale[1]
 	sprite_right_player.scale.x = desired_scale[0]
