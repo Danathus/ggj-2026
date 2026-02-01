@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://brjnpo7fq311o"]
+
+[ext_resource type="Texture2D" uid="uid://cuc6jph56vf2c" path="res://materials/white.png" id="1_sctc2"]
+[ext_resource type="Texture2D" uid="uid://bsl4y3fn7ksg2" path="res://materials/ninja_mask.png" id="2_1ljby"]
+[ext_resource type="Animation" uid="uid://d4jrscjumugfw" path="res://animations/test.res" id="3_pnkql"]
+[ext_resource type="AnimationLibrary" uid="uid://dpvu0sfs54fx8" path="res://animations/test_animation_library.tres" id="4_k6umv"]
+[ext_resource type="Script" uid="uid://bae2hyvoy3nf2" path="res://demo/animation_player.gd" id="5_eotev"]
+[ext_resource type="AudioStream" uid="uid://dnie2acsvnsnc" path="res://audio/running-363346-double.mp3" id="6_teqhw"]
+[ext_resource type="Script" uid="uid://7dm2n7yrw8o" path="res://demo/audio_stream_player_2d.gd" id="7_1tglu"]
+[ext_resource type="AudioStream" uid="uid://qproviaurmj2" path="res://audio/jump-landing1.mp3" id="8_qu6d7"]
+[ext_resource type="AudioStream" uid="uid://d1kteu1wsmdpg" path="res://audio/jump-landing2.mp3" id="9_1ghw3"]
+[ext_resource type="AudioStream" uid="uid://b0ltlyuav2wdn" path="res://audio/jump-landing3.mp3" id="10_rrlce"]
+[ext_resource type="AudioStream" uid="uid://bqtfiemwlh6kf" path="res://audio/jumping.mp3" id="11_hcwj4"]
+[ext_resource type="AudioStream" uid="uid://b32t7234onbmr" path="res://audio/whoosh.mp3" id="12_1nvvv"]
+
+[sub_resource type="Animation" id="Animation_8etv0"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_npd7j"]
+_data = {
+&"RESET": SubResource("Animation_8etv0"),
+&"test": ExtResource("3_pnkql")
+}
+
+[node name="Left Player" type="Node2D" unique_id=425743162]
+scale = Vector2(50, 100)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1499597359]
+texture = ExtResource("1_sctc2")
+
+[node name="NinjaMask" type="Sprite2D" parent="Sprite2D" unique_id=75368604]
+position = Vector2(-0.22000003, -0.11999999)
+scale = Vector2(0.004, 0.002)
+texture = ExtResource("2_1ljby")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=732440586]
+libraries/ = SubResource("AnimationLibrary_npd7j")
+libraries/test_animation_library = ExtResource("4_k6umv")
+script = ExtResource("5_eotev")
+animation = "test_animation_library/test"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=139402900]
+stream = ExtResource("6_teqhw")
+script = ExtResource("7_1tglu")
+landingClips = Array[AudioStream]([ExtResource("8_qu6d7"), ExtResource("9_1ghw3"), ExtResource("10_rrlce")])
+runningClips = Array[AudioStream]([ExtResource("6_teqhw")])
+jumpingClips = Array[AudioStream]([ExtResource("11_hcwj4")])
+whooshClip = ExtResource("12_1nvvv")

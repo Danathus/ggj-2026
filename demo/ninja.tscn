@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://b0ltlyuav2wdn" path="res://audio/jump-landing3.mp3" id="10_lr8qu"]
 [ext_resource type="AudioStream" uid="uid://bqtfiemwlh6kf" path="res://audio/jumping.mp3" id="11_j8g7q"]
 [ext_resource type="AudioStream" uid="uid://b32t7234onbmr" path="res://audio/whoosh.mp3" id="12_lr8qu"]
+[ext_resource type="Texture2D" uid="uid://bkelashuqsu6v" path="res://materials/background.png" id="14_huc6e"]
 
 [sub_resource type="Animation" id="Animation_8etv0"]
 length = 0.001
@@ -107,3 +108,9 @@ landingClips = Array[AudioStream]([ExtResource("8_wfboo"), ExtResource("9_j8g7q"
 runningClips = Array[AudioStream]([ExtResource("6_npd7j")])
 jumpingClips = Array[AudioStream]([ExtResource("11_j8g7q")])
 whooshClip = ExtResource("12_lr8qu")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1216188403]
+z_index = -1
+position = Vector2(575, -328)
+scale = Vector2(0.363, 0.483)
+texture = ExtResource("14_huc6e")
