@@ -81,6 +81,17 @@ position = Vector2(-0.22000003, -0.11999999)
 scale = Vector2(0.004, 0.002)
 texture = ExtResource("3_lr8qu")
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Left Player/Sprite2D" unique_id=1404219016]
+position = Vector2(0, 0.5)
+amount = 25
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(0.52, 0.015)
+gravity = Vector2(0, 150)
+scale_amount_min = 5.0
+scale_amount_max = 14.15
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Left Player" unique_id=2067930485]
 libraries/ = SubResource("AnimationLibrary_npd7j")
 libraries/test_animation_library = ExtResource("3_3aiyw")
@@ -106,6 +117,17 @@ texture = ExtResource("2_lr8qu")
 position = Vector2(0.24, -0.12)
 scale = Vector2(-0.004, 0.002)
 texture = ExtResource("3_lr8qu")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Right Player/Sprite2D" unique_id=1291373569]
+position = Vector2(0, 0.5)
+amount = 25
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(0.52, 0.015)
+gravity = Vector2(0, 150)
+scale_amount_min = 5.0
+scale_amount_max = 14.15
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Right Player" unique_id=492000358]
 libraries/test_animation_library = ExtResource("3_3aiyw")
